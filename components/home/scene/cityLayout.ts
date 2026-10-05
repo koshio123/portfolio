@@ -23,8 +23,6 @@ export const STEP = 2.4;
 export const ROAD_LENGTH = 40;
 /** 道路タイルを中心から何枚ぶん延ばすか */
 const ROAD_TILES = 20;
-/** 郊外を中心から何区画ぶん広げるか */
-const OUTSKIRTS = 12;
 /** 車の拡大率 */
 export const CAR_SCALE = 0.36;
 
@@ -90,20 +88,6 @@ export function createLayout(models: CityModels): CityLayout {
       const scale = Math.min(1.7, 2.1 / Math.max(w, d));
       const h = place(id, x + (rand() - 0.5) * 0.2, z + (rand() - 0.5) * 0.2, scale, quarterTurn());
       rooftops.push([x, h, z]);
-    }
-  }
-
-  // 郊外:中心街の外側に、木とまばらな家・低い建物を置く(街の外が空き地に見えないように)
-  const randOut = seededRandom(19);
-  for (let ix = -OUTSKIRTS; ix <= OUTSKIRTS; ix++) {
-    for (let iz = -OUTSKIRTS; iz <= OUTSKIRTS; iz++) {
-      if (Math.max(Math.abs(ix), Math.abs(iz)) <= 5 || ix === 0 || iz === 0) continue;
-      const x = ix * STEP + (randOut() - 0.5) * 0.8;
-      const z = iz * STEP + (randOut() - 0.5) * 0.8;
-      const r = randOut();
-      if (r < 0.5) place(randOut() < 0.5 ? "tree-large" : "tree-small", x, z, 2.6, 0);
-      else if (r < 0.68) place(HOUSES[Math.floor(randOut() * HOUSES.length)], x, z, 1.3, Math.floor(randOut() * 4) * (Math.PI / 2));
-      else if (r < 0.76) place(BUILDINGS[Math.floor(randOut() * 5)], x, z, 1.4, Math.floor(randOut() * 4) * (Math.PI / 2));
     }
   }
 

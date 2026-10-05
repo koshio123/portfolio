@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { CAR_MODELS, CAR_SCALE, createLayout, networkPositions, particleOrigins, seededRandom } from "./cityLayout";
 import { phases, sampleKeyframes } from "./keyframes";
 import { Helpers } from "./Helpers";
+import { NetworkLines, type NetworkHandle } from "./NetworkLines";
 import { Sky } from "./Sky";
 import { advanceTravel, carCountByModel, CARS, placeCar } from "./traffic";
 import { useCityModels, type ModelData } from "./useCityModels";
@@ -107,8 +108,7 @@ export function City({ progress, shadows, onReady }: Props) {
   const skyRef = useRef<{ top: THREE.Color; bottom: THREE.Color }>(null!);
   const twinMesh = useRef<THREE.InstancedMesh>(null!);
   const twinMat = useRef<THREE.MeshBasicMaterial>(null!);
-  const lines = useRef<THREE.LineSegments>(null!);
-  const linesMat = useRef<THREE.LineBasicMaterial>(null!);
+  const lines = useRef<NetworkHandle>(null!);
   const particleGeo = useRef<THREE.BufferGeometry>(null!);
   const particleMat = useRef<THREE.PointsMaterial>(null!);
   const signalGeo = useRef<THREE.BufferGeometry>(null!);
@@ -159,9 +159,7 @@ export function City({ progress, shadows, onReady }: Props) {
     cam.lookAt(lookAt);
 
     // 01 ネットワークが伸びていく
-    const total = network.length / 3;
-    lines.current.geometry.setDrawRange(0, Math.floor((total * ph.network) / 2) * 2);
-    linesMat.current.opacity = 0.9 * ph.network * (1 - 0.7 * ph.sunset);
+    lines.current.update(ph.network, ph.network * (1 - 0.7 * ph.sunset), time);
 
     // 02 データの粒子が上空へ。ツインが現れる
     const pos = particleGeo.current.attributes.position.array as Float32Array;
@@ -261,12 +259,7 @@ export function City({ progress, shadows, onReady }: Props) {
       ))}
 
       {/* 01 ネットワーク */}
-      <lineSegments ref={lines}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[network, 3]} />
-        </bufferGeometry>
-        <lineBasicMaterial ref={linesMat} color={GLOW_CYAN} transparent depthWrite={false} toneMapped={false} />
-      </lineSegments>
+      <NetworkLines ref={lines} positions={network} />
 
       {/* 02 データの粒子と、上空のデジタルツイン */}
       <points>
