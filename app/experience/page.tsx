@@ -40,13 +40,15 @@ export default function ExperiencePage() {
     <div className="container-page flex flex-col gap-24 py-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading as="h1" label="EXPERIENCE" title="経歴" description="[ページの説明 — 1行]" />
-        <a
-          href={site.resumePdf}
-          className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary-bg px-6 text-sm font-bold text-primary-ink no-underline hover:text-primary-ink hover:opacity-90"
-        >
-          <DownloadIcon />
-          職務経歴書(PDF)
-        </a>
+        {site.resumePdf && (
+          <a
+            href={site.resumePdf}
+            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary-bg px-6 text-sm font-bold text-primary-ink no-underline hover:text-primary-ink hover:opacity-90"
+          >
+            <DownloadIcon />
+            職務経歴書(PDF)
+          </a>
+        )}
       </div>
 
       <section className="flex flex-col gap-8">

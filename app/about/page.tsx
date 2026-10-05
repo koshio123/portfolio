@@ -39,13 +39,15 @@ export default function AboutPage() {
             [自己紹介 — 3〜4行。専門領域、これまでの歩み、これから取り組みたいこと]
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
-            <a
-              href={site.resumePdf}
-              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary-bg px-6 text-sm font-bold text-primary-ink no-underline hover:text-primary-ink hover:opacity-90"
-            >
-              <DownloadIcon />
-              職務経歴書(PDF)
-            </a>
+            {site.resumePdf && (
+              <a
+                href={site.resumePdf}
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary-bg px-6 text-sm font-bold text-primary-ink no-underline hover:text-primary-ink hover:opacity-90"
+              >
+                <DownloadIcon />
+                職務経歴書(PDF)
+              </a>
+            )}
             <ButtonLink href="#contact" variant="secondary">
               連絡先
             </ButtonLink>
