@@ -63,6 +63,8 @@ function DeliveryRobot() {
   );
 }
 
+export const HELPER_COUNT = 5;
+
 /** 第3幕で現れるドローン3機と配送ロボット2台。位置は City が毎フレーム動かす */
 export function Helpers({ ref }: { ref: Ref<THREE.Group> }) {
   return (

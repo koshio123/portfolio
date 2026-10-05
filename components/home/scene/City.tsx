@@ -3,24 +3,29 @@
 import { useLayoutEffect, useMemo, useRef, type RefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { AiCore, type AiHandle } from "./AiCore";
 import { CAR_MODELS, CAR_SCALE, createLayout, networkPositions, particleOrigins, seededRandom } from "./cityLayout";
 import { phases, sampleKeyframes } from "./keyframes";
-import { Helpers } from "./Helpers";
+import { HELPER_COUNT, Helpers } from "./Helpers";
 import { NetworkLines, type NetworkHandle } from "./NetworkLines";
 import { Sky } from "./Sky";
 import { advanceTravel, carCountByModel, CARS, placeCar } from "./traffic";
 import { useCityModels, type ModelData } from "./useCityModels";
 
 const PARTICLE_COUNT = 420;
-const SIGNAL_COUNT = 160;
 const TWIN_Y = 13; // 上空のデジタルツインの高さ
+
+// 03 で AI が見ている対象:車(AI_CAR_EVERY 台に 1 台)、ドローンとロボット、住宅の一部
+const AI_CAR_EVERY = 5;
+const AI_CARS = Math.ceil(CARS.length / AI_CAR_EVERY);
+const AI_HOMES = 4;
 
 /** ブルームで光らせるため、1 を超える明るさにした色 */
 const GLOW_CYAN = new THREE.Color("#3dd6f5").multiplyScalar(2.2);
-const GLOW_GREEN = new THREE.Color("#5be3a1").multiplyScalar(2);
 
 const tmp = new THREE.Object3D();
 const lookAt = new THREE.Vector3();
+const aiPoint = new THREE.Vector3();
 const carPose = { position: new THREE.Vector3(), heading: 0, visible: 1 };
 
 /** 粒子の起点・速度・位相を固定シードで作る */
@@ -79,7 +84,7 @@ export function City({ progress, shadows, onReady }: Props) {
   const network = useMemo(() => networkPositions(layout), [layout]);
   const origins = useMemo(() => particleOrigins(layout), [layout]);
   const particles = useMemo(() => makeParticles(origins, PARTICLE_COUNT, 11), [origins]);
-  const signals = useMemo(() => makeParticles(origins, SIGNAL_COUNT, 23), [origins]);
+  const aiHomes = useMemo(() => layout.homes.filter((_, i) => i % 4 === 1).slice(0, AI_HOMES), [layout]);
   const twinBlocks = useMemo(
     () =>
       layout.rooftops.map(([x, h, z]) => {
@@ -111,8 +116,7 @@ export function City({ progress, shadows, onReady }: Props) {
   const lines = useRef<NetworkHandle>(null!);
   const particleGeo = useRef<THREE.BufferGeometry>(null!);
   const particleMat = useRef<THREE.PointsMaterial>(null!);
-  const signalGeo = useRef<THREE.BufferGeometry>(null!);
-  const signalMat = useRef<THREE.PointsMaterial>(null!);
+  const ai = useRef<AiHandle>(null!);
   const helpers = useRef<THREE.Group>(null!);
   const carMeshes = useRef<Record<string, THREE.InstancedMesh>>({});
   const travel = useRef(0);
@@ -176,17 +180,6 @@ export function City({ progress, shadows, onReady }: Props) {
     twinMat.current.opacity = 0.6 * ph.twin;
     twinMesh.current.visible = ph.twin > 0.01;
 
-    // 03 ツインから信号が降り、街が整う
-    const sig = signalGeo.current.attributes.position.array as Float32Array;
-    for (let i = 0; i < SIGNAL_COUNT; i++) {
-      const f = (time * signals.speed[i] * 1.4 + signals.phase[i]) % 1;
-      sig[i * 3] = signals.origin[i * 3];
-      sig[i * 3 + 1] = TWIN_Y - f * (TWIN_Y - signals.origin[i * 3 + 1]);
-      sig[i * 3 + 2] = signals.origin[i * 3 + 2];
-    }
-    signalGeo.current.attributes.position.needsUpdate = true;
-    signalMat.current.opacity = ph.optimize * (1 - ph.sunset);
-
     // 車(動きの規則は traffic.ts)
     travel.current = advanceTravel(travel.current, delta, ph.chaos, ph.optimize);
     CARS.forEach((car, i) => {
@@ -196,6 +189,9 @@ export function City({ progress, shadows, onReady }: Props) {
       tmp.scale.setScalar(CAR_SCALE * carPose.visible);
       tmp.updateMatrix();
       carMeshes.current[car.model]?.setMatrixAt(car.index, tmp.matrix);
+      if (i % AI_CAR_EVERY === 0) {
+        ai.current.setTarget(i / AI_CAR_EVERY, aiPoint.copy(carPose.position).setY(0.25), 0.45 * carPose.visible);
+      }
     });
     for (const mesh of Object.values(carMeshes.current)) mesh.instanceMatrix.needsUpdate = true;
 
@@ -213,7 +209,12 @@ export function City({ progress, shadows, onReady }: Props) {
         child.rotation.y = -Math.PI / 2;
       }
       child.scale.setScalar(s);
+      ai.current.setTarget(AI_CARS + i, aiPoint.copy(child.position).setY(child.position.y + (child.name === "drone" ? 0 : 0.2)), 0.4);
     });
+
+    // 03 AIの核と、街への指令・検出枠
+    aiHomes.forEach(([x, h, z], i) => ai.current.setTarget(AI_CARS + HELPER_COUNT + i, aiPoint.set(x, h / 2, z), 0.85));
+    ai.current.update(cam, s * (1 - ph.sunset), s, time);
   });
 
   return (
@@ -275,13 +276,8 @@ export function City({ progress, shadows, onReady }: Props) {
         </instancedMesh>
       </group>
 
-      {/* 03 ツインから降りる信号 */}
-      <points>
-        <bufferGeometry ref={signalGeo}>
-          <bufferAttribute attach="attributes-position" args={[signals.positions, 3]} />
-        </bufferGeometry>
-        <pointsMaterial ref={signalMat} color={GLOW_GREEN} size={0.12} transparent depthWrite={false} toneMapped={false} />
-      </points>
+      {/* 03 AIの核(ツインの中心)と、街への指令 */}
+      <AiCore ref={ai} count={AI_CARS + HELPER_COUNT + aiHomes.length} position={[0, TWIN_Y + 1.4, 0]} />
 
       {/* 03 ドローン(3機)と配送ロボット(2台) */}
       <Helpers ref={helpers} />

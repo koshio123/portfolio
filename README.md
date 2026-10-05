@@ -29,7 +29,8 @@ components/
   blog/                   PostCard
   home/                   VisionScene(スクロール制御・キャプション)、ScenePoster(静止画)
     scene/                CityCanvas(描画設定)、City(3Dの中身)、keyframes(幕ごとの色・カメラ)、
-                          cityLayout(街の配置)、useCityModels(モデル読み込み)、Sky、Helpers(ドローン等)
+                          cityLayout(街の配置)、traffic(車の動き)、NetworkLines(01 の光の線)、
+                          AiCore(03 のAIの核・指令・検出枠)、useCityModels(モデル読み込み)、Sky、Helpers(ドローン等)
 content/                  ★ 文章やデータはすべてここ
   site.ts                 名前・URL・SNSリンク・ナビ
   vision.ts               ビジョン文と、3Dシーンの幕ごとのキャプション
