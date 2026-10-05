@@ -5,7 +5,7 @@ import { HeaderHeightVar } from "./HeaderHeightVar";
 import { NavLinks } from "./NavLinks";
 
 const iconButton =
-  "inline-flex size-11 items-center justify-center rounded-md border border-line-strong text-ink hover:text-link";
+  "inline-flex size-11 items-center justify-center rounded-md text-ink hover:text-link";
 
 /**
  * 全ページ共通のヘッダー。常に Night ゾーンで、画面上部に固定する。
