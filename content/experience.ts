@@ -79,11 +79,11 @@ export const skillGroups: SkillGroup[] = [
     label: "LANGUAGES",
     title: "言語",
     skills: [
-      { name: "Python", level: null, years: null },
-      { name: "TypeScript", level: null, years: null },
-      { name: "C#", level: null, years: null },
-      { name: "C", level: null, years: null },
-      { name: "MATLAB / Simulink", level: null, years: null },
+      { name: "Python", level: 4, years: null },
+      { name: "TypeScript", level: 4, years: null },
+      { name: "C#", level: 3, years: null },
+      { name: "C", level: 2, years: null },
+      { name: "MATLAB / Simulink", level: 4, years: null },
     ],
   },
   {
@@ -92,11 +92,11 @@ export const skillGroups: SkillGroup[] = [
     title: "バックエンド・データベース",
     primary: true,
     skills: [
-      { name: "FastAPI", level: null, years: null },
-      { name: "Flask", level: null, years: null },
-      { name: "PostgreSQL", level: null, years: null },
-      { name: "Oracle DB", level: null, years: null },
-      { name: "API設計", level: null, years: null },
+      { name: "FastAPI", level: 4, years: null },
+      { name: "Flask", level: 2, years: null },
+      { name: "PostgreSQL", level: 4, years: null },
+      { name: "Oracle DB", level: 2, years: null },
+      { name: "API設計", level: 3, years: null },
     ],
   },
   {
@@ -104,10 +104,10 @@ export const skillGroups: SkillGroup[] = [
     label: "FRONTEND / 3D",
     title: "フロントエンド・3D",
     skills: [
-      { name: "React", level: null, years: null },
-      { name: "Three.js", level: null, years: null },
-      { name: "D3.js", level: null, years: null },
-      { name: "Unity", level: null, years: null },
+      { name: "React", level: 3, years: null },
+      { name: "Three.js", level: 3, years: null },
+      { name: "D3.js", level: 3, years: null },
+      { name: "Unity", level: 3, years: null },
     ],
   },
   {
@@ -115,9 +115,9 @@ export const skillGroups: SkillGroup[] = [
     label: "CLOUD / INFRA",
     title: "クラウド・インフラ",
     skills: [
-      { name: "AWS", level: null, years: null },
-      { name: "Docker / Podman", level: null, years: null },
-      { name: "GitHub Actions", level: null, years: null },
+      { name: "AWS", level: 4, years: null },
+      { name: "Docker / Podman", level: 4, years: null },
+      { name: "GitHub Actions", level: 3, years: null },
     ],
   },
   {
@@ -125,14 +125,17 @@ export const skillGroups: SkillGroup[] = [
     label: "ML / OPTIMIZATION",
     title: "機械学習・最適化",
     skills: [
-      { name: "時系列予測", level: null, years: null },
-      { name: "機械学習(分類・異常検知)", level: null, years: null },
-      { name: "数理最適化(制約付きスケジューリング)", level: null, years: null },
+      { name: "時系列予測", level: 4, years: null },
+      { name: "機械学習(分類・異常検知)", level: 4, years: null },
+      { name: "数理最適化(制約付きスケジューリング)", level: 3, years: null },
     ],
   },
 ];
 
 /** ドメイン知識(業務領域)。深さ・年数は付けない */
+/** 深さ(level)の基準。スキルマップの凡例に出す */
+export const skillLevels = ["学習", "業務経験", "独力で遂行", "設計をリード", "専門家"];
+
 export const domains: string[] = [
   "車両開発全般",
   "エネルギーマネジメント(V2X)",

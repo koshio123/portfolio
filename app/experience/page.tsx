@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { careers, certifications, domains, skillGroups, type Skill } from "@/content/experience";
+import { careers, certifications, domains, skillGroups, skillLevels, type Skill } from "@/content/experience";
 import { getProject } from "@/content/projects";
 import { site } from "@/content/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -93,7 +93,7 @@ export default function ExperiencePage() {
       </section>
 
       <section className="flex flex-col gap-8">
-        <SectionHeading label="02 SKILLS" title="スキルマップ" description="5段階の深さと経験年数" />
+        <SectionHeading label="02 SKILLS" title="スキルマップ" description={`深さの5段階:${skillLevels.map((l, i) => `${i + 1} ${l}`).join(" / ")}`} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((g) => (
             <div
