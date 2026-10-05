@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Component, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { acts } from "@/content/vision";
 import { ScenePoster } from "./ScenePoster";
 
@@ -31,6 +31,20 @@ function hasWebGL() {
 
 const subscribeNothing = () => () => {};
 
+/** 3D の読み込みや描画で例外が出たら、親に知らせて何も描かない(親が静止画に切り替える) */
+class SceneErrorBoundary extends Component<{ onError: () => void; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onError();
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
 /**
  * Home の3Dシーン。セクションを幕の数 × 画面の高さぶん縦に伸ばし、
  * 中身を画面に固定(sticky)してスクロール量で幕を進める。
@@ -43,6 +57,7 @@ export function VisionScene() {
   const [inView, setInView] = useState(true);
 
   const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   // サーバーでは判定できない(null)。ブラウザで 3D か静止画かを決める
   const reducedMotion = useSyncExternalStore<boolean | null>(
@@ -52,7 +67,7 @@ export function VisionScene() {
   );
   const webgl = useSyncExternalStore<boolean | null>(subscribeNothing, hasWebGL, () => null);
   const decided = reducedMotion !== null && webgl !== null;
-  const show3D = decided && webgl && !reducedMotion;
+  const show3D = decided && webgl && !reducedMotion && !failed;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -106,16 +121,19 @@ export function VisionScene() {
         className="sticky overflow-hidden"
         style={{ top: "var(--header-h)", height: "calc(100svh - var(--header-h))" }}
       >
-        {/* 3Dを使わない環境(動きを減らす設定・WebGL非対応)は静止画 */}
+        {/* 3Dを使わない環境(動きを減らす設定・WebGL非対応・読み込み失敗)は静止画 */}
         {decided && !show3D && <ScenePoster />}
 
-        {/* 3Dは最初の描画が済んでからフェードインする。それまでは夜色の背景とローディング表示 */}
+        {/* 3Dは最初の描画が済んでからフェードインする。それまでは夜色の背景とローディング表示。
+            ローディング表示はブラウザで3Dに決まってから出す(サーバーのHTMLには含めない) */}
         {show3D && (
           <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
-            <CityCanvas progress={progress} active={inView} onReady={() => setReady(true)} />
+            <SceneErrorBoundary onError={() => setFailed(true)}>
+              <CityCanvas progress={progress} active={inView} onReady={() => setReady(true)} />
+            </SceneErrorBoundary>
           </div>
         )}
-        {!(decided && !show3D) && !ready && (
+        {show3D && !ready && (
           <p role="status" className="label absolute inset-0 flex items-center justify-center gap-3 text-ink-muted">
             <span className="size-2 animate-pulse rounded-full bg-cyan" />
             LOADING
