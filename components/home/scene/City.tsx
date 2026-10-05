@@ -72,7 +72,14 @@ function StaticInstances({
   );
 }
 
-export function City({ progress, shadows }: { progress: RefObject<number>; shadows: boolean }) {
+type Props = {
+  progress: RefObject<number>;
+  shadows: boolean;
+  /** 最初のフレームを描き終えたら呼ぶ */
+  onReady: () => void;
+};
+
+export function City({ progress, shadows, onReady }: Props) {
   const models = useCityModels();
   const layout = useMemo(() => createLayout(models), [models]);
   const network = useMemo(() => networkPositions(layout), [layout]);
@@ -122,6 +129,7 @@ export function City({ progress, shadows }: { progress: RefObject<number>; shado
   const helpers = useRef<THREE.Group>(null!);
   const carMeshes = useRef<Record<string, THREE.InstancedMesh>>({});
   const travel = useRef(0);
+  const frames = useRef(0);
 
   useLayoutEffect(() => {
     twinBlocks.forEach((m, i) => twinMesh.current.setMatrixAt(i, m));
@@ -129,11 +137,14 @@ export function City({ progress, shadows }: { progress: RefObject<number>; shado
   }, [twinBlocks]);
 
   useFrame((state, delta) => {
+    // 2フレーム目(1フレーム目の描画が済んだあと)に準備完了を知らせる
+    if (frames.current < 2 && ++frames.current === 2) onReady();
+
     const p = progress.current ?? 0;
     const ph = phases(p);
     const k = sampleKeyframes(p);
     const time = state.clock.elapsedTime;
-    const damp = 1 - Math.exp(-delta * 3);
+    const damp = frames.current < 2 ? 1 : 1 - Math.exp(-delta * 3);
 
     // 空・光・地面・街の色
     skyRef.current.top.copy(k.sky);

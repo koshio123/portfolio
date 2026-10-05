@@ -68,7 +68,8 @@ mdx-components.tsx        ブログ本文のスタイル
   - `KEYFRAMES`:幕ごとの空・地面・建物の色、光、カメラ位置
   - `phases()`:ネットワーク・データ粒子・ツイン・最適化・夕日が、スクロールのどこで現れるか
 - three.js は Home を開いたときだけブラウザで読み込みます(`next/dynamic` の `ssr: false`)。
-- 動きを減らす設定(prefers-reduced-motion)や WebGL 非対応の環境では、`ScenePoster` の静止画になります。
+- 読み込み中は夜色の背景とローディング表示だけを出し、最初のフレームを描いてから3Dをフェードインします。
+- 動きを減らす設定(prefers-reduced-motion)や WebGL 非対応の環境では、`ScenePoster` の静止画(`public/scene-poster.jpg`、実際の3Dシーンを撮影した画像)になります。
 - 画面外にスクロールすると描画を止めます。
 
 ### 3Dモデル

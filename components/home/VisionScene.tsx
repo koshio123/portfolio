@@ -42,14 +42,17 @@ export function VisionScene() {
   const [act, setAct] = useState(0);
   const [inView, setInView] = useState(true);
 
-  // サーバーでは静止画を描き、ブラウザで条件を満たせば3Dに切り替える
-  const reducedMotion = useSyncExternalStore(
+  const [ready, setReady] = useState(false);
+
+  // サーバーでは判定できない(null)。ブラウザで 3D か静止画かを決める
+  const reducedMotion = useSyncExternalStore<boolean | null>(
     subscribeReducedMotion,
     () => window.matchMedia(REDUCED_MOTION).matches,
-    () => true,
+    () => null,
   );
-  const webgl = useSyncExternalStore(subscribeNothing, hasWebGL, () => false);
-  const show3D = webgl && !reducedMotion;
+  const webgl = useSyncExternalStore<boolean | null>(subscribeNothing, hasWebGL, () => null);
+  const decided = reducedMotion !== null && webgl !== null;
+  const show3D = decided && webgl && !reducedMotion;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -85,6 +88,8 @@ export function VisionScene() {
   }, []);
 
   const current = acts[act];
+  // 3D か静止画が表示されてから、キャプションなどを重ねる
+  const visible = decided && (!show3D || ready);
   // 第4幕は夕日で背景が明るくなるため、文字を暗くする
   const onBright = show3D && act === acts.length - 1;
 
@@ -101,11 +106,23 @@ export function VisionScene() {
         className="sticky overflow-hidden"
         style={{ top: "var(--header-h)", height: "calc(100svh - var(--header-h))" }}
       >
-        {/* 静止画を常に下に敷き、3Dが描画されたら上に重なる */}
-        <ScenePoster />
-        {show3D && <CityCanvas progress={progress} active={inView} />}
+        {/* 3Dを使わない環境(動きを減らす設定・WebGL非対応)は静止画 */}
+        {decided && !show3D && <ScenePoster />}
 
-        {current.title && (
+        {/* 3Dは最初の描画が済んでからフェードインする。それまでは夜色の背景とローディング表示 */}
+        {show3D && (
+          <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
+            <CityCanvas progress={progress} active={inView} onReady={() => setReady(true)} />
+          </div>
+        )}
+        {!(decided && !show3D) && !ready && (
+          <p role="status" className="label absolute inset-0 flex items-center justify-center gap-3 text-ink-muted">
+            <span className="size-2 animate-pulse rounded-full bg-cyan" />
+            LOADING
+          </p>
+        )}
+
+        {visible && current.title && (
           <div
             key={act}
             aria-live="polite"
@@ -120,6 +137,7 @@ export function VisionScene() {
 
         <ol
           aria-label="シーンの進行"
+          hidden={!ready}
           className={`absolute top-1/2 right-6 hidden -translate-y-1/2 flex-col gap-3.5 font-mono text-xs md:right-14 md:flex ${
             onBright ? "text-on-accent" : "text-ink-muted"
           }`}
@@ -138,7 +156,7 @@ export function VisionScene() {
           ))}
         </ol>
 
-        {act === 0 && (
+        {ready && act === 0 && (
           <span className="label absolute bottom-8 left-1/2 -translate-x-1/2 tracking-[0.2em] text-ink-muted">
             SCROLL ↓
           </span>

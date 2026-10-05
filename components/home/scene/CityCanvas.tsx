@@ -10,6 +10,8 @@ type Props = {
   progress: RefObject<number>;
   /** 画面外では描画を止める */
   active: boolean;
+  /** モデルを読み込み、最初のフレームを描いたときに1度だけ呼ばれる */
+  onReady: () => void;
 };
 
 /** 画面幅とCPUコア数から、影と発光を使うかを決める */
@@ -17,7 +19,7 @@ function detectHighQuality() {
   return window.innerWidth >= 768 && (navigator.hardwareConcurrency ?? 4) >= 4;
 }
 
-export default function CityCanvas({ progress, active }: Props) {
+export default function CityCanvas({ progress, active, onReady }: Props) {
   const [high] = useState(detectHighQuality);
 
   return (
@@ -28,9 +30,8 @@ export default function CityCanvas({ progress, active }: Props) {
         shadows={high}
         frameloop={active ? "always" : "never"}
       >
-        {/* モデルの読み込み中は背後の静止画が見える */}
         <Suspense fallback={null}>
-          <City progress={progress} shadows={high} />
+          <City progress={progress} shadows={high} onReady={onReady} />
           {high && (
             <EffectComposer>
               <Bloom intensity={0.9} luminanceThreshold={1} mipmapBlur />
