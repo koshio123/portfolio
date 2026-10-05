@@ -18,9 +18,9 @@ export type Act = {
 };
 
 export const acts: Act[] = [
-  { step: "00 PROBLEM" },
+  { step: "00 PROBLEM", kicker: "00 — PROBLEM", title: "問題があふれる世界" },
   { step: "01 IT", kicker: "01 — IT", title: "すべてをつなぐ基盤" },
   { step: "02 DATA", kicker: "02 — BIG DATA", title: "世界を映し、理解する" },
-  { step: "03 AI", kicker: "03 — AI", title: "無駄を取り除く" },
-  { step: "04 VISION", kicker: "04 — VISION", title: "有益な時間を、最大化する" },
+  { step: "03 AI", kicker: "03 — AI", title: "難問を解決する" },
+  { step: "04 VISION", kicker: "04 — VISION", title: "人々の有益な時間を最大化する" },
 ];
