@@ -145,11 +145,11 @@ export const domains: string[] = [
 ];
 
 export const certifications: { name: string; issuer: string }[] = [
+  { name: "TOEIC 970", issuer: "国際ビジネスコミュニケーション協会(IIBC)" },
   { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services" },
   { name: "AWS Certified Developer – Associate", issuer: "Amazon Web Services" },
   { name: "AWS Certified Machine Learning – Associate", issuer: "Amazon Web Services" },
   { name: "応用情報技術者試験", issuer: "情報処理推進機構(IPA)" },
   { name: "E資格(Deep Learning for ENGINEER)", issuer: "日本ディープラーニング協会(JDLA)" },
   { name: "画像処理エンジニア検定 エキスパート", issuer: "CG-ARTS" },
-  { name: "TOEIC 970", issuer: "国際ビジネスコミュニケーション協会(IIBC)" },
 ];

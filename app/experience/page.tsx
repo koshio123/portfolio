@@ -93,7 +93,7 @@ export default function ExperiencePage() {
       </section>
 
       <section className="flex flex-col gap-8">
-        <SectionHeading label="02 SKILLS" title="スキルマップ" description={`深さの5段階:${skillLevels.map((l, i) => `${i + 1} ${l}`).join(" / ")}`} />
+        <SectionHeading label="02 SKILLS" title="スキルマップ" description={`${skillLevels.map((l, i) => `${i + 1} ${l}`).join(" / ")}`} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((g) => (
             <div
