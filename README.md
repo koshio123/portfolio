@@ -10,6 +10,7 @@ npm install
 npm run dev      # http://localhost:3000
 npm run lint
 npm run build
+npm run assets   # 3Dモデル(public/models/city.glb)を作り直す
 ```
 
 ## ディレクトリ構成
@@ -27,7 +28,8 @@ components/
   projects/               ProjectCard、ProjectsBrowser(絞り込み)、ArchitectureDiagram
   blog/                   PostCard
   home/                   VisionScene(スクロール制御・キャプション)、ScenePoster(静止画)
-    scene/                CityCanvas、City(3Dの中身)、keyframes(幕ごとの色・カメラ)、cityLayout(街の配置)
+    scene/                CityCanvas(描画設定)、City(3Dの中身)、keyframes(幕ごとの色・カメラ)、
+                          cityLayout(街の配置)、useCityModels(モデル読み込み)、Sky、Helpers(ドローン等)
 content/                  ★ 文章やデータはすべてここ
   site.ts                 名前・URL・SNSリンク・ナビ
   vision.ts               ビジョン文と、3Dシーンの幕ごとのキャプション
@@ -35,6 +37,8 @@ content/                  ★ 文章やデータはすべてここ
   experience.ts           職務経歴・スキル・資格
   blog/*.mdx              ブログ記事
 lib/blog.ts               記事一覧の読み込み
+scripts/build-city-assets.mjs  Kenney素材から city.glb を作るスクリプト
+public/models/city.glb    3Dシーンのモデル(スクリプトの出力)
 mdx-components.tsx        ブログ本文のスタイル
 ```
 
@@ -66,6 +70,15 @@ mdx-components.tsx        ブログ本文のスタイル
 - three.js は Home を開いたときだけブラウザで読み込みます(`next/dynamic` の `ssr: false`)。
 - 動きを減らす設定(prefers-reduced-motion)や WebGL 非対応の環境では、`ScenePoster` の静止画になります。
 - 画面外にスクロールすると描画を止めます。
+
+### 3Dモデル
+
+- モデルは [Kenney](https://kenney.nl) の CC0 素材(City Kit Commercial / Suburban / Roads、Car Kit、Furniture Kit)です。
+- `npm run assets` で、スクリプトが Kenney から zip を取得し(`.cache/` に保存)、使うモデルだけを1つの GLB にまとめて meshopt 圧縮します。
+- 使うモデルを増やすときは、スクリプトの `MODELS` にモデル ID とファイル名を足して再実行します。
+- 読み込み側(`useCityModels`)は、モデルごとにメッシュを1つにまとめ、同じモデルは `InstancedMesh` でまとめて描きます。
+- 街全体の色は幕ごとの `tint` を掛けて統一しています(素材の配色はそのまま、夜は青く、混沌はくすませる)。
+- 影とブルーム(発光)は、画面幅 768px 以上かつ CPU 4 コア以上のときだけ有効です。
 
 ## デプロイ
 

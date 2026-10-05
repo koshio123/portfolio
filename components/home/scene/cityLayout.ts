@@ -1,10 +1,13 @@
+import * as THREE from "three";
+import type { CityModels } from "./useCityModels";
+
 /**
  * ミニチュア都市の配置。乱数は固定シードなので毎回同じ街になる。
- * 道路:x 軸方向の大通り(z = 0)と、z 軸方向の通り(x = 0)。
- * 左手前(x < 0, z > 0)は住宅街。
+ * 道路:x 軸方向の大通り(z = 0)と、z 軸方向の通り(x = 0)。左手前(x < 0, z > 0)は住宅街。
+ * モデルの外寸に合わせて拡大率を決めるため、読み込んだモデルを受け取って配置を作る。
  */
 
-function seededRandom(seed: number) {
+export function seededRandom(seed: number) {
   let a = seed;
   return () => {
     a = (a + 0x6d2b79f5) | 0;
@@ -14,44 +17,94 @@ function seededRandom(seed: number) {
   };
 }
 
-export type Block = { x: number; z: number; w: number; d: number; h: number };
+/** 1区画の大きさ(道路タイルもこの大きさ) */
+export const STEP = 2.4;
+/** 道路の長さ(車が走る範囲) */
+export const ROAD_LENGTH = 32;
+/** 車の拡大率 */
+export const CAR_SCALE = 0.36;
 
-const rand = seededRandom(7);
-const STEP = 2.4;
-export const ROAD_LENGTH = 30;
+export const CAR_MODELS = ["car-sedan", "car-suv", "car-taxi", "car-van", "car-hatchback-sports", "car-delivery"];
 
-const isResidential = (x: number, z: number) => x < -1 && z > 1;
+const BUILDINGS = "abcdefghijklmn".split("").map((c) => `building-${c}`);
+const SKYSCRAPERS = "abcde".split("").map((c) => `skyscraper-${c}`);
+const HOUSES = "abcdefgh".split("").map((c) => `house-${c}`);
 
-export const buildings: Block[] = [];
-export const houses: Block[] = [];
-export const trees: { x: number; z: number; s: number }[] = [];
+export type CityLayout = {
+  /** モデル ID → 置く位置(行列)の一覧。InstancedMesh で描く */
+  instances: Record<string, THREE.Matrix4[]>;
+  /** 屋上の位置(ネットワークや粒子の起点) */
+  rooftops: [number, number, number][];
+  /** 住宅の屋根の位置 */
+  homes: [number, number, number][];
+};
 
-for (let ix = -5; ix <= 5; ix++) {
-  for (let iz = -5; iz <= 5; iz++) {
-    const x = ix * STEP;
-    const z = iz * STEP;
-    if (Math.abs(x) < 2 || Math.abs(z) < 2) continue; // 道路
+const tmp = new THREE.Object3D();
 
-    if (isResidential(x, z)) {
-      if (ix >= -4 && iz <= 4) houses.push({ x, z, w: 1.3, d: 1.1, h: 0.8 });
-      else trees.push({ x, z, s: 0.8 + rand() * 0.5 });
+export function createLayout(models: CityModels): CityLayout {
+  const rand = seededRandom(7);
+  const instances: Record<string, THREE.Matrix4[]> = {};
+  const rooftops: [number, number, number][] = [];
+  const homes: [number, number, number][] = [];
+
+  const place = (id: string, x: number, z: number, scale: number, rotY: number) => {
+    tmp.position.set(x, 0, z);
+    tmp.rotation.set(0, rotY, 0);
+    tmp.scale.setScalar(scale);
+    tmp.updateMatrix();
+    (instances[id] ??= []).push(tmp.matrix.clone());
+    return models[id].size.y * scale;
+  };
+  const pick = (list: string[]) => list[Math.floor(rand() * list.length)];
+  const quarterTurn = () => Math.floor(rand() * 4) * (Math.PI / 2);
+
+  for (let ix = -5; ix <= 5; ix++) {
+    for (let iz = -5; iz <= 5; iz++) {
+      const x = ix * STEP;
+      const z = iz * STEP;
+      if (Math.abs(x) < 2 || Math.abs(z) < 2) continue; // 道路
+
+      // 住宅街
+      if (x < -1 && z > 1) {
+        if (ix >= -4 && iz <= 4) {
+          const h = place(pick(HOUSES), x, z, 1.3, quarterTurn());
+          homes.push([x, h, z]);
+        } else {
+          place(rand() < 0.5 ? "tree-large" : "tree-small", x, z, 2.6, 0);
+        }
+        continue;
+      }
+
+      if (rand() < 0.1) {
+        place("tree-large", x, z, 2.6, 0);
+        continue;
+      }
+      // 中心ほど高層ビル
+      const centrality = 1 - Math.min(1, Math.hypot(x, z) / 14);
+      const id = centrality > 0.45 && rand() < 0.8 ? pick(SKYSCRAPERS) : pick(BUILDINGS);
+      const { x: w, z: d } = models[id].size;
+      const scale = Math.min(1.7, 2.1 / Math.max(w, d));
+      const h = place(id, x + (rand() - 0.5) * 0.2, z + (rand() - 0.5) * 0.2, scale, quarterTurn());
+      rooftops.push([x, h, z]);
+    }
+  }
+
+  // 道路(地平線まで延ばす)
+  for (let k = -9; k <= 9; k++) {
+    if (k === 0) {
+      place("road-crossroad", 0, 0, STEP, 0);
       continue;
     }
-    if (rand() < 0.12) continue;
-    const centrality = 1 - Math.min(1, Math.hypot(x, z) / 14);
-    buildings.push({
-      x: x + (rand() - 0.5) * 0.3,
-      z: z + (rand() - 0.5) * 0.3,
-      w: 1.2 + rand() * 0.6,
-      d: 1.2 + rand() * 0.6,
-      h: 0.8 + rand() * 2 + centrality * 6,
-    });
+    place("road-straight", k * STEP, 0, STEP, 0); // x 方向の大通り
+    place("road-straight", 0, k * STEP, STEP, Math.PI / 2); // z 方向の通り
   }
+
+  return { instances, rooftops, homes };
 }
 
-/** 建物・家の屋上を、近いものどうしで結んだネットワーク(LineSegments 用の座標列) */
-export const networkPositions = (() => {
-  const nodes = [...buildings, ...houses].map((b) => [b.x, b.h + 0.05, b.z] as const);
+/** 屋上どうし(と地面)を結ぶネットワークの線分(LineSegments 用) */
+export function networkPositions({ rooftops, homes }: CityLayout) {
+  const nodes = [...rooftops, ...homes];
   const out: number[] = [];
   nodes.forEach((a, i) => {
     let best = -1;
@@ -65,17 +118,16 @@ export const networkPositions = (() => {
       }
     });
     if (best >= 0 && bestDist < 4) out.push(...a, ...nodes[best]);
-    // 地面の配線へ降ろす線
-    out.push(a[0], a[1], a[2], a[0], 0.02, a[2]);
+    out.push(a[0], a[1], a[2], a[0], 0.05, a[2]);
   });
   return new Float32Array(out);
-})();
+}
 
-/** データの粒子が立ち昇る起点(屋上と道路) */
-export const particleOrigins = [
-  ...buildings.map((b) => [b.x, b.h, b.z] as const),
-  ...houses.map((b) => [b.x, b.h + 0.5, b.z] as const),
-  ...Array.from({ length: 12 }, (_, i) => [-ROAD_LENGTH / 2 + i * 2.5, 0.3, 0] as const),
-];
-
-export { seededRandom };
+/** データの粒子が立ち昇る起点(屋上・住宅・道路) */
+export function particleOrigins({ rooftops, homes }: CityLayout) {
+  return [
+    ...rooftops,
+    ...homes,
+    ...Array.from({ length: 12 }, (_, i) => [-ROAD_LENGTH / 2 + i * 2.7, 0.3, 0] as [number, number, number]),
+  ];
+}

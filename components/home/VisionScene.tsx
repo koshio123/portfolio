@@ -6,10 +6,7 @@ import { acts } from "@/content/vision";
 import { ScenePoster } from "./ScenePoster";
 
 // three.js はブラウザでのみ、必要になってから読み込む
-const CityCanvas = dynamic(() => import("./scene/CityCanvas"), {
-  ssr: false,
-  loading: () => <ScenePoster />,
-});
+const CityCanvas = dynamic(() => import("./scene/CityCanvas"), { ssr: false });
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
@@ -104,7 +101,9 @@ export function VisionScene() {
         className="sticky overflow-hidden"
         style={{ top: "var(--header-h)", height: "calc(100svh - var(--header-h))" }}
       >
-        {show3D ? <CityCanvas progress={progress} active={inView} /> : <ScenePoster />}
+        {/* 静止画を常に下に敷き、3Dが描画されたら上に重なる */}
+        <ScenePoster />
+        {show3D && <CityCanvas progress={progress} active={inView} />}
 
         {current.title && (
           <div
