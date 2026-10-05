@@ -4,18 +4,17 @@ import { CAR_MODELS, ROAD_TILES, STEP } from "./cityLayout";
 /**
  * 車の動き。交差点を中心に、横(x 軸)と縦(z 軸)の道路を2車線ずつ走る。
  *
- * - 混沌(chaos = 1):交差点の手前と先の両側で、各車線 8 台ずつが詰まって止まる
- * - 混沌が解ける(chaos 1 → 0):手前の列は後ろへ、先の列は前へ車間を広げる。
- *   並び順は変えず、交差点もまたがないので、追い越しや重なりは起きない
+ * - 混沌(chaos = 1):4方向とも、交差点の手前に各車線 8 台が詰まって止まる
+ * - 混沌が解ける(chaos 1 → 0):先頭はそのまま、後続が後ろへ車間を広げる。
+ *   並び順は変えず、交差点もまたがないので、追い越しや重なりは起きない。
+ *   道路の端まで下がった車は、流れているときの位置(交差点の先)に現れ直す
  * - それ以降:等間隔で流れる。縦の車列は半周期ずらしてあり、信号なしで交互に交差点を抜ける
  *
  * 「進行方向の座標 d」は交差点が 0、手前が負。1車線は長さ LOOP の輪として扱い、端で反対側へ戻す。
  */
 
-/** 交差点の片側に並ぶ台数 */
-const QUEUE = 8;
-/** 1車線の台数(交差点の手前と先) */
-const CARS_PER_LANE = QUEUE * 2;
+/** 1車線の台数 */
+const CARS_PER_LANE = 8;
 /** 流れているときの車間 */
 const SPACING = 6;
 /** 輪の長さ。道路タイルの端(ROAD_TILES * STEP)より少し内側に収まる */
@@ -90,15 +89,23 @@ export function placeCar(i: number, travel: number, chaos: number, out: { positi
   const laps = Math.floor(travel / SPACING);
   const rest = travel - laps * SPACING;
   const slot = mod(car.order - laps, CARS_PER_LANE);
-  // j >= 0:交差点の手前の列(0 が先頭)。j < 0:交差点の先の列(-1 が最後尾)
-  const j = slot < QUEUE ? slot : slot - CARS_PER_LANE;
 
-  const flowing = JAM_HEAD + rest + phase - j * SPACING;
-  const jammed = j >= 0 ? JAM_HEAD - j * JAM_GAP : -JAM_HEAD + (-j - 1) * JAM_GAP;
+  const flowing = JAM_HEAD + rest + phase - slot * SPACING;
+  const jammed = JAM_HEAD - slot * JAM_GAP;
   const raw = THREE.MathUtils.lerp(flowing, jammed, chaos);
-  const d = mod(raw + LOOP / 2, LOOP) - LOOP / 2;
+  const seam = -LOOP / 2;
+
+  let d: number;
+  let grow = 1;
+  if (raw >= seam || chaos === 0) {
+    d = mod(raw - seam, LOOP) + seam;
+  } else {
+    // 車間を広げる途中で道路の端を越えた車:流れているときの位置に置き、進み具合に応じて大きくする
+    d = mod(flowing - seam, LOOP) + seam;
+    grow = THREE.MathUtils.smoothstep((seam - raw) / (seam - flowing), 0, 1);
+  }
 
   out.position.copy(dir).multiplyScalar(d).add(side);
   out.heading = Math.atan2(dir.x, dir.z); // モデルの前は +z
-  out.visible = THREE.MathUtils.smoothstep(LOOP / 2 - Math.abs(d), 0, 2);
+  out.visible = grow * THREE.MathUtils.smoothstep(LOOP / 2 - Math.abs(d), 0, 2);
 }
