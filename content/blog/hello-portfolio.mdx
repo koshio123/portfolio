@@ -1,0 +1,27 @@
+export const metadata = {
+  title: "[サンプル記事] ポートフォリオサイトを作った",
+  date: "2026-10-05",
+  summary: "[記事の要約 — 2行程度。この記事はサンプルです。content/blog/ に .mdx を追加すると一覧に並びます]",
+  tags: ["Next.js", "Three.js"],
+};
+
+## はじめに
+
+[本文。この記事は書き方のサンプルです。不要になったら削除してください]
+
+## 記事の追加方法
+
+1. `content/blog/` に `記事のslug.mdx` を作る
+2. 先頭で `export const metadata = { title, date, summary, tags }` を書く
+3. 本文を Markdown で書く
+
+```ts
+export const metadata = {
+  title: "記事タイトル",
+  date: "2026-10-05",
+  summary: "要約",
+  tags: ["タグ"],
+};
+```
+
+本文中のリンクは [このように](https://nextjs.org/docs) 書けます。

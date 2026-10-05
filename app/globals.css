@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+/*
+ * Portfolio Twin — デザイントークン
+ * デザインシステム「Portfolio Twin」の tokens.json と同じ値。
+ * Day(コンテンツ)が既定。夜のゾーンは要素に data-theme="night" を付ける。
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --surface: #f3f4f6;
+  --line: #d5d9e0;
+  --line-strong: #a8b0bc;
+  --ink: #1b1f27;
+  --ink-muted: #5a6270;
+  --link: #1f5fd1;
+  --link-hover: #123f91;
+  --focus: #1f5fd1;
+  --night-box: #0e1726;
+  --tag-personal-bg: #e2f5eb;
+  --tag-personal-ink: #145a36;
+  --primary-bg: #1b1f27;
+  --primary-ink: #ffffff;
+  --header-h: 4.75rem; /* 実際の値は HeaderHeightVar が上書きする */
+}
+
+[data-theme="night"] {
+  --bg: #0e1726;
+  --surface: #13203a;
+  --line: #2a3b5c;
+  --line-strong: #4a5f82;
+  --ink: #e6ecf5;
+  --ink-muted: #8fa3bf;
+  --link: #3dd6f5;
+  --link-hover: #8be8fa;
+  --focus: #3dd6f5;
+  --night-box: #22345a;
+  --tag-personal-bg: #1b3a2c;
+  --tag-personal-ink: #9bebc3;
+  --primary-bg: #3dd6f5;
+  --primary-ink: #0e1726;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-focus: var(--focus);
+  --color-night-box: var(--night-box);
+  --color-tag-personal-bg: var(--tag-personal-bg);
+  --color-tag-personal-ink: var(--tag-personal-ink);
+  --color-primary-bg: var(--primary-bg);
+  --color-primary-ink: var(--primary-ink);
+  --color-cyan: #3dd6f5;
+  --color-amber: #f5b84a;
+  --color-on-accent: #0e1726;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-biz), "Hiragino Sans", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.25;
+  --text-h1: 2.75rem;
+  --text-h1--line-height: 1.3;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.4;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.5;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --animate-fade-up: fade-up 0.6s ease both;
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* セクションラベル・日付などの等幅ラベル */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+/* コンテンツ幅(1120px)と左右の余白 */
+@utility container-page {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--link);
+  }
+  a:hover {
+    color: var(--link-hover);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
 }
