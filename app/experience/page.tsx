@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { careers, certifications, skillGroups, type Skill } from "@/content/experience";
+import { careers, certifications, domains, skillGroups, type Skill } from "@/content/experience";
 import { getProject } from "@/content/projects";
 import { site } from "@/content/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,25 +12,27 @@ export const metadata: Metadata = {
 };
 
 function SkillMeter({ skill }: { skill: Skill }) {
-  const level = skill.level ?? 0;
+  const { name, level, years } = skill;
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between gap-3 text-sm">
-        <span>{skill.name}</span>
-        <span className="font-mono text-xs text-ink-muted">{skill.years}年</span>
+        <span>{name}</span>
+        {years !== null && <span className="font-mono text-xs text-ink-muted">{years}年</span>}
       </div>
-      <div
-        role="meter"
-        aria-label={`${skill.name}の深さ`}
-        aria-valuemin={0}
-        aria-valuemax={5}
-        aria-valuenow={level}
-        className="grid grid-cols-5 gap-1"
-      >
-        {[1, 2, 3, 4, 5].map((n) => (
-          <span key={n} className={`h-1.5 rounded-xs ${n <= level ? "bg-link" : "bg-line"}`} />
-        ))}
-      </div>
+      {level !== null && (
+        <div
+          role="meter"
+          aria-label={`${name}の深さ`}
+          aria-valuemin={0}
+          aria-valuemax={5}
+          aria-valuenow={level}
+          className="grid grid-cols-5 gap-1"
+        >
+          {[1, 2, 3, 4, 5].map((n) => (
+            <span key={n} className={`h-1.5 rounded-xs ${n <= level ? "bg-link" : "bg-line"}`} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -39,7 +41,7 @@ export default function ExperiencePage() {
   return (
     <div className="container-page flex flex-col gap-24 py-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading as="h1" label="EXPERIENCE" title="経歴" description="[ページの説明 — 1行]" />
+        <SectionHeading as="h1" label="EXPERIENCE" title="経歴" description="職務経歴、スキル、資格" />
         {site.resumePdf && (
           <a
             href={site.resumePdf}
@@ -92,7 +94,7 @@ export default function ExperiencePage() {
 
       <section className="flex flex-col gap-8">
         <SectionHeading label="02 SKILLS" title="スキルマップ" description="5段階の深さと経験年数" />
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((g) => (
             <div
               key={g.key}
@@ -108,16 +110,27 @@ export default function ExperiencePage() {
               ))}
             </div>
           ))}
+          <div className="flex flex-col gap-5 rounded-lg bg-surface px-6 py-7">
+            <div className="flex flex-col gap-1">
+              <span className="label text-ink-muted">DOMAIN</span>
+              <h3 className="text-h3 font-bold">ドメイン知識</h3>
+            </div>
+            <ul className="flex flex-col gap-3 text-sm">
+              {domains.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-6">
-        <SectionHeading label="03 CERTIFICATIONS" title="資格・受賞" />
+        <SectionHeading label="03 CERTIFICATIONS" title="資格" />
         <ul className="grid gap-4 md:grid-cols-3">
           {certifications.map((c, i) => (
             <li key={i} className="flex flex-col gap-1 rounded-lg bg-surface px-6 py-5">
-              <span className="font-mono text-xs text-ink-muted">{c.year}</span>
               <span className="font-bold">{c.name}</span>
+              <span className="text-xs text-ink-muted">{c.issuer}</span>
             </li>
           ))}
         </ul>

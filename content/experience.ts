@@ -14,9 +14,10 @@ export type Career = {
 
 export type Skill = {
   name: string;
-  /** 深さ 1〜5。未入力なら null */
+  /** 深さ 1〜5。未入力(null)ならバーを出さない */
   level: number | null;
-  years: string;
+  /** 経験年数。未入力(null)なら出さない */
+  years: number | null;
 };
 
 export type SkillGroup = {
@@ -68,50 +69,84 @@ export const careers: Career[] = [
   },
 ];
 
+/**
+ * スキルマップ。技術を「ソフトウェアのどの層か」で分ける(1つのスキルは1つの枠にだけ入れる)。
+ * 業務領域の知識は技術と軸が違うので、下の domains に分けて書く。
+ */
 export const skillGroups: SkillGroup[] = [
   {
-    key: "cloud",
-    label: "CLOUD / BACKEND",
-    title: "クラウド・バックエンド",
+    key: "language",
+    label: "LANGUAGES",
+    title: "言語",
+    skills: [
+      { name: "Python", level: null, years: null },
+      { name: "TypeScript", level: null, years: null },
+      { name: "C#", level: null, years: null },
+      { name: "C", level: null, years: null },
+      { name: "MATLAB / Simulink", level: null, years: null },
+    ],
+  },
+  {
+    key: "backend",
+    label: "BACKEND / DATABASE",
+    title: "バックエンド・データベース",
     primary: true,
     skills: [
-      { name: "AWS", level: null, years: "[n]" },
-      { name: "Python / FastAPI", level: null, years: "[n]" },
-      { name: "PostgreSQL", level: null, years: "[n]" },
-      { name: "API設計", level: null, years: "[n]" },
+      { name: "FastAPI", level: null, years: null },
+      { name: "Flask", level: null, years: null },
+      { name: "PostgreSQL", level: null, years: null },
+      { name: "Oracle DB", level: null, years: null },
+      { name: "API設計", level: null, years: null },
     ],
   },
   {
-    key: "data",
-    label: "DATA / ML",
-    title: "データ・機械学習",
+    key: "frontend",
+    label: "FRONTEND / 3D",
+    title: "フロントエンド・3D",
     skills: [
-      { name: "[スキル]", level: null, years: "[n]" },
-      { name: "[スキル]", level: null, years: "[n]" },
+      { name: "React", level: null, years: null },
+      { name: "Three.js", level: null, years: null },
+      { name: "D3.js", level: null, years: null },
+      { name: "Unity", level: null, years: null },
     ],
   },
   {
-    key: "simulation",
-    label: "SIMULATION",
-    title: "シミュレーション",
+    key: "cloud",
+    label: "CLOUD / INFRA",
+    title: "クラウド・インフラ",
     skills: [
-      { name: "車両シミュレーション", level: null, years: "[n]" },
-      { name: "[スキル]", level: null, years: "[n]" },
+      { name: "AWS", level: null, years: null },
+      { name: "Docker / Podman", level: null, years: null },
+      { name: "GitHub Actions", level: null, years: null },
     ],
   },
   {
-    key: "energy",
-    label: "ENERGY / MOBILITY",
-    title: "エネルギー・モビリティ",
+    key: "ml",
+    label: "ML / OPTIMIZATION",
+    title: "機械学習・最適化",
     skills: [
-      { name: "V1G / V2G", level: null, years: "[n]" },
-      { name: "VPP", level: null, years: "[n]" },
-      { name: "充電行動予測", level: null, years: "[n]" },
+      { name: "時系列予測", level: null, years: null },
+      { name: "機械学習(分類・異常検知)", level: null, years: null },
+      { name: "数理最適化(制約付きスケジューリング)", level: null, years: null },
     ],
   },
 ];
 
-export const certifications: { year: string; name: string }[] = [
-  { year: "[YYYY]", name: "[資格名]" },
-  { year: "[YYYY]", name: "[資格名・受賞]" },
+/** ドメイン知識(業務領域)。深さ・年数は付けない */
+export const domains: string[] = [
+  "車両開発全般",
+  "エネルギーマネジメント(V2X)",
+  "デジタルツイン・シミュレーション",
+  "車両故障診断",
+  "パワトレ制御(主にEV)",
+];
+
+export const certifications: { name: string; issuer: string }[] = [
+  { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services" },
+  { name: "AWS Certified Developer – Associate", issuer: "Amazon Web Services" },
+  { name: "AWS Certified Machine Learning – Associate", issuer: "Amazon Web Services" },
+  { name: "応用情報技術者試験", issuer: "情報処理推進機構(IPA)" },
+  { name: "E資格(Deep Learning for ENGINEER)", issuer: "日本ディープラーニング協会(JDLA)" },
+  { name: "画像処理エンジニア検定 エキスパート", issuer: "CG-ARTS" },
+  { name: "TOEIC 970", issuer: "国際ビジネスコミュニケーション協会(IIBC)" },
 ];
