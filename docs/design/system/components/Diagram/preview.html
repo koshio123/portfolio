@@ -1,0 +1,36 @@
+<!-- @dsCard group="Content" height=300 -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;font-family:var(--font-sans);background:var(--bg);padding:var(--space-6)}
+figure{margin:0;padding:var(--space-8);background:var(--surface);border-radius:var(--radius-lg)}
+svg{display:block;width:100%;height:auto}
+.box{fill:var(--bg);stroke:var(--line-strong);stroke-width:1}
+.main{fill:var(--night-box)}
+.t{fill:var(--ink);font-size:14px;font-family:var(--font-sans)}
+.tm{fill:var(--accent-cyan);font-size:14px;font-weight:700;font-family:var(--font-sans)}
+.ln{stroke:var(--ink-muted);stroke-width:1.5;fill:none}
+.dash{stroke-dasharray:5 4}
+.hd{fill:var(--ink-muted)}
+figcaption{margin-top:var(--space-4);font-size:12px;line-height:1.6;color:var(--ink-muted)}
+</style>
+</head>
+<body>
+<figure>
+<svg viewBox="0 0 640 140" role="img" aria-label="車両・充電器からゲートウェイを経てクラウド基盤へ。クラウドは外部システムと連携">
+<rect class="box" x="0" y="44" width="130" height="52" rx="6"/><text class="t" x="65" y="75" text-anchor="middle">車両・充電器</text>
+<line class="ln" x1="130" y1="70" x2="168" y2="70"/><polygon class="hd" points="168,65 176,70 168,75"/>
+<rect class="box" x="176" y="44" width="130" height="52" rx="6"/><text class="t" x="241" y="75" text-anchor="middle">ゲートウェイ</text>
+<line class="ln" x1="306" y1="70" x2="344" y2="70"/><polygon class="hd" points="344,65 352,70 344,75"/>
+<rect class="main" x="352" y="44" width="130" height="52" rx="6"/><text class="tm" x="417" y="75" text-anchor="middle">クラウド基盤</text>
+<line class="ln dash" x1="482" y1="70" x2="502" y2="70"/>
+<rect class="box" x="510" y="44" width="130" height="52" rx="6"/><text class="t" x="575" y="75" text-anchor="middle">外部システム</text>
+</svg>
+<figcaption>図1 抽象化したアーキテクチャ(実線:データの流れ、破線:連携)</figcaption>
+</figure>
+</body>
+</html>

@@ -59,6 +59,7 @@ mdx-components.tsx        ブログ本文のスタイル
 ## デザイン
 
 - トークンはデザインシステム「Portfolio Twin」と同じ値を `app/globals.css` に定義しています。
+- 絵コンテ・ワイヤーフレーム・カンプとデザインシステムのソースは [`docs/design/`](docs/design/README.md) にあります。
 - 色は意味の名前で使います(`bg-bg` `text-ink` `text-ink-muted` `border-line` `bg-surface` `text-link` など)。
 - **Twin**:コンテンツは Day(白)、Home の3D・ヘッダー・フッターは Night。要素に `data-theme="night"` を付けると、その中のトークンが夜の値に切り替わります。
 

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Home ワイヤーフレーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5FD1}a:hover{color:#123F91}
+</style>
+</helmet>
+<div style="min-height: 100%; background: #FFFFFF; color: #1B1F27; font-family: 'Zen Kaku Gothic New', sans-serif">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 40px; background: #0E1726; color: #E6ECF5; border-bottom: 1px solid #22314A">
+<a href="Main.dc.html" style="font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 18px; color: #E6ECF5; text-decoration: none">[氏名]</a>
+<nav style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 14px">
+<a href="Projects.dc.html" style="color: #C9D4E4; text-decoration: none">Projects</a>
+<a href="Experience.dc.html" style="color: #C9D4E4; text-decoration: none">Experience</a>
+<a href="Blog.dc.html" style="color: #C9D4E4; text-decoration: none">Blog</a>
+<a href="About.dc.html" style="color: #C9D4E4; text-decoration: none">About</a>
+<span style="display: flex; gap: 8px">
+<a href="#" aria-label="GitHub" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #4A5F82; border-radius: 10px; color: #E6ECF5; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500">GH</a>
+<a href="#" aria-label="LinkedIn" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #4A5F82; border-radius: 10px; color: #E6ECF5; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500">in</a>
+</span>
+</nav>
+</header>
+
+<section style="position: relative; height: 720px; background: #0E1726; color: #E6ECF5; overflow: hidden">
+<div style="position: absolute; inset: 24px; border: 1px dashed #33476A; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8FA3BF">[ 3D CANVAS — React Three Fiber ]</span>
+<span style="font-size: 18px; color: #C9D4E4">ミニチュア都市。スクロールに合わせて第0〜4幕が進行</span>
+<span style="font-size: 13px; color: #8FA3BF">キャンバスは画面に固定(sticky)、スクロール区間は約500vh</span>
+</div>
+</div>
+
+<div style="position: absolute; top: 44px; left: 44px; max-width: 320px; background: #FFF4CC; color: #4D3B00; font-size: 12px; line-height: 1.5; padding: 8px 12px; border-radius: 6px">注記:動きを減らす設定や低性能端末では、静止画のポスターに置き換え</div>
+
+<div style="position: absolute; left: 56px; bottom: 72px; display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: {{accent}}">01 — ICT</span>
+<span style="font-size: 40px; font-weight: 700; line-height: 1.25">すべてをつなぐ基盤</span>
+<span style="font-size: 13px; color: #8FA3BF">幕ごとに切り替わるキャプション</span>
+</div>
+
+<nav aria-label="シーンの進行" style="position: absolute; right: 56px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px">
+<span style="display: flex; align-items: center; gap: 10px; color: #8FA3BF"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #8FA3BF"></span>00 混沌</span>
+<span style="display: flex; align-items: center; gap: 10px; color: {{accent}}"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{accent}}"></span>01 ICT</span>
+<span style="display: flex; align-items: center; gap: 10px; color: #8FA3BF"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #8FA3BF"></span>02 DATA</span>
+<span style="display: flex; align-items: center; gap: 10px; color: #8FA3BF"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #8FA3BF"></span>03 AI</span>
+<span style="display: flex; align-items: center; gap: 10px; color: #8FA3BF"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #8FA3BF"></span>04 VISION</span>
+</nav>
+
+<span style="position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #8FA3BF">SCROLL ↓</span>
+<a href="#vision" style="position: absolute; right: 48px; bottom: 28px; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1px solid #4A5F82; border-radius: 999px; color: #E6ECF5; text-decoration: none; font-size: 14px">スキップ →</a>
+</section>
+
+<section id="vision" style="padding: 120px 24px; background: #FFFFFF">
+<div style="max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5A6270; letter-spacing: 0.1em">VISION</span>
+<p style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1.6">ICTを基盤として、AIとビッグデータを活用し、人々の生活から無駄を取り除き、人生に有益な時間を最大化できる世界を実現する。</p>
+<span style="font-size: 15px; color: #5A6270">— [氏名]</span>
+<div style="align-self: flex-start; background: #FFF4CC; color: #4D3B00; font-size: 12px; padding: 8px 12px; border-radius: 6px">注記:第4幕と同じ文。SEOと読み上げのためHTMLとしても出力</div>
+</div>
+</section>
+
+<section style="padding: 96px 24px; background: #F3F4F6">
+<div style="max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5A6270; letter-spacing: 0.1em">EXPLORE</span>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px">
+<a href="Projects.dc.html" style="display: flex; flex-direction: column; gap: 12px; padding: 28px; background: #FFFFFF; border: 1px solid #D5D9E0; border-radius: 12px; color: #1B1F27; text-decoration: none">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5A6270">01</span>
+<span style="font-size: 24px; font-weight: 700">Projects</span>
+<span style="font-size: 14px; color: #5A6270; line-height: 1.6">業務と個人開発のプロジェクト</span>
+<span style="font-size: 14px; color: #1F5FD1">見る →</span>
+</a>
+<a href="Experience.dc.html" style="display: flex; flex-direction: column; gap: 12px; padding: 28px; background: #FFFFFF; border: 1px solid #D5D9E0; border-radius: 12px; color: #1B1F27; text-decoration: none">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5A6270">02</span>
+<span style="font-size: 24px; font-weight: 700">Experience</span>
+<span style="font-size: 14px; color: #5A6270; line-height: 1.6">職務経歴とスキルマップ</span>
+<span style="font-size: 14px; color: #1F5FD1">見る →</span>
+</a>
+<a href="Blog.dc.html" style="display: flex; flex-direction: column; gap: 12px; padding: 28px; background: #FFFFFF; border: 1px solid #D5D9E0; border-radius: 12px; color: #1B1F27; text-decoration: none">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5A6270">03</span>
+<span style="font-size: 24px; font-weight: 700">Blog</span>
+<span style="font-size: 14px; color: #5A6270; line-height: 1.6">技術記事</span>
+<span style="font-size: 14px; color: #1F5FD1">見る →</span>
+</a>
+</div>
+</div>
+</section>
+
+<footer style="padding: 40px 24px; background: #0E1726; color: #C9D4E4">
+<div style="max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: #E6ECF5">[氏名]</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8FA3BF">© 2026 [氏名]</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3DD6F5","options":["#3DD6F5","#5BE3A1","#F5B84A"]},"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+renderVals() {
+return { accent: this.props.accent ?? '#3DD6F5' };
+}
+}
+</script>
+</body>
+</html>

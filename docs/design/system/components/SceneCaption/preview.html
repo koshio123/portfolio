@@ -1,0 +1,33 @@
+<!-- @dsCard group="Home" height=280 subtitle="Night ゾーン固定" -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;font-family:var(--font-sans)}
+.scene{position:relative;height:280px;background:var(--bg);color:var(--ink);overflow:hidden}
+.cap{position:absolute;left:var(--space-12);bottom:var(--space-12);display:flex;flex-direction:column;gap:var(--space-2)}
+.cap .no{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--link)}
+.cap .t{font-size:44px;line-height:1.3;font-weight:700}
+.prog{position:absolute;right:var(--space-12);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:var(--space-3);margin:0;padding:0;list-style:none;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+.prog li{display:flex;align-items:center;gap:var(--space-3)}
+.dot{width:8px;height:8px;border-radius:var(--radius-pill);border:var(--border-width) solid var(--ink-muted);box-sizing:border-box}
+.prog li[aria-current="step"]{color:var(--link)}
+.prog li[aria-current="step"] .dot{background:var(--link);border-color:var(--link)}
+</style>
+</head>
+<body>
+<div class="scene" data-theme="night">
+<div class="cap"><span class="no">01 — ICT</span><span class="t">すべてをつなぐ基盤</span></div>
+<ol class="prog" aria-label="シーンの進行">
+<li><span class="dot"></span>00 混沌</li>
+<li aria-current="step"><span class="dot"></span>01 ICT</li>
+<li><span class="dot"></span>02 DATA</li>
+<li><span class="dot"></span>03 AI</li>
+<li><span class="dot"></span>04 VISION</li>
+</ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Project 詳細 デザインカンプ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5FD1}a:hover{color:#123F91}
+</style>
+</helmet>
+<div style="min-height: 100%; background: #FFFFFF; color: #1B1F27; font-family: 'BIZ UDPGothic', sans-serif">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 40px; background: #0E1726; color: #E6ECF5; border-bottom: 1px solid #2A3B5C">
+<a href="CompHome.dc.html" style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 18px; color: #E6ECF5; text-decoration: none">[氏名]</a>
+<nav aria-label="メイン" style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 14px">
+<a href="CompProjects.dc.html" aria-current="page" style="color: #3DD6F5; text-decoration: none">Projects</a>
+<a href="CompExperience.dc.html" style="color: #8FA3BF; text-decoration: none">Experience</a>
+<a href="CompBlog.dc.html" style="color: #8FA3BF; text-decoration: none">Blog</a>
+<a href="CompAbout.dc.html" style="color: #8FA3BF; text-decoration: none">About</a>
+<span style="display: flex; gap: 8px">
+<a href="#" aria-label="GitHub" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #4A5F82; border-radius: 8px; color: #E6ECF5"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6 3 10l4 4M13 6l4 4-4 4"></path></svg></a>
+<a href="#" aria-label="LinkedIn" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #4A5F82; border-radius: 8px; color: #E6ECF5"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"></rect><path d="M7 9v5M7 6.5v.01M10.5 14v-5M10.5 11.5c0-1.4 1-2.5 2.2-2.5s1.8.9 1.8 2.2V14"></path></svg></a>
+</span>
+</nav>
+</header>
+
+<div style="background: #F3F4F6; border-bottom: 1px solid #D5D9E0">
+<div style="max-width: 1120px; margin: 0 auto; padding: 56px 24px 48px; display: flex; flex-direction: column; gap: 16px">
+<nav aria-label="パンくず" style="font-size: 14px; color: #5A6270"><a href="CompProjects.dc.html">Projects</a> / V2X(EVスマート充電)</nav>
+<span style="align-self: flex-start; font-size: 12px; line-height: 1.6; padding: 2px 12px; border-radius: 999px; background: #F5B84A; color: #0E1726">業務</span>
+<h1 style="margin: 0; font-size: 44px; line-height: 1.3; font-weight: 700">V2X(EVスマート充電)</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 8px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">PERIOD</span><span style="font-size: 16px">[YYYY.MM – YYYY.MM]</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">TYPE</span><span style="font-size: 16px">業務</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">TEAM</span><span style="font-size: 16px">[人数・体制]</span></div>
+</div>
+</div>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 64px 24px 96px; display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-start">
+<nav aria-label="目次" style="flex: 0 1 200px; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">CONTENTS</span>
+<a href="#s1" style="display: flex; align-items: center; gap: 10px; color: #1F5FD1; font-weight: 700; text-decoration: none"><span style="width: 6px; height: 6px; border-radius: 999px; background: #1F5FD1"></span>概要</a>
+<a href="#s2" style="padding-left: 16px; color: #5A6270; text-decoration: none">全体図 or 画面</a>
+<a href="#s3" style="padding-left: 16px; color: #5A6270; text-decoration: none">課題</a>
+<a href="#s4" style="padding-left: 16px; color: #5A6270; text-decoration: none">担当</a>
+<a href="#s5" style="padding-left: 16px; color: #5A6270; text-decoration: none">設計のポイント</a>
+<a href="#s6" style="padding-left: 16px; color: #5A6270; text-decoration: none">成果</a>
+<a href="#s7" style="padding-left: 16px; color: #5A6270; text-decoration: none">技術スタック</a>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 80px">
+
+<section id="s1" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">01 OVERVIEW</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">概要</h2>
+<p style="margin: 0; font-size: 20px; line-height: 1.8; font-weight: 700">[何を、誰のために作ったか — 1〜2行]</p>
+</section>
+
+<section id="s2" style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">02 ARCHITECTURE</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">全体図 or 画面</h2>
+</div>
+<div role="tablist" aria-label="表示切り替え" style="display: flex; padding: 4px; background: #F3F4F6; border-radius: 8px">
+<button type="button" role="tab" aria-selected="true" style="min-height: 44px; padding: 0 20px; border-radius: 6px; border: none; background: #FFFFFF; color: #1B1F27; font: inherit; font-size: 14px; font-weight: 700">全体図</button>
+<button type="button" role="tab" aria-selected="false" style="min-height: 44px; padding: 0 20px; border-radius: 6px; border: none; background: transparent; color: #5A6270; font: inherit; font-size: 14px">画面</button>
+</div>
+</div>
+<figure style="margin: 0; padding: 40px 32px; background: #F3F4F6; border-radius: 12px">
+<svg viewBox="0 0 640 140" style="display: block; width: 100%; height: auto" role="img" aria-label="車両・充電器からゲートウェイを経てクラウド基盤へ。クラウドは外部システムと連携">
+<rect x="0" y="44" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#A8B0BC"></rect><text x="65" y="75" text-anchor="middle" fill="#1B1F27" font-size="14" font-family="BIZ UDPGothic, sans-serif">[車両・充電器]</text>
+<line x1="130" y1="70" x2="168" y2="70" stroke="#5A6270" stroke-width="1.5"></line><polygon points="168,65 176,70 168,75" fill="#5A6270"></polygon>
+<rect x="176" y="44" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#A8B0BC"></rect><text x="241" y="75" text-anchor="middle" fill="#1B1F27" font-size="14" font-family="BIZ UDPGothic, sans-serif">[通信・GW]</text>
+<line x1="306" y1="70" x2="344" y2="70" stroke="#5A6270" stroke-width="1.5"></line><polygon points="344,65 352,70 344,75" fill="#5A6270"></polygon>
+<rect x="352" y="44" width="130" height="52" rx="6" fill="#0E1726"></rect><text x="417" y="75" text-anchor="middle" fill="#3DD6F5" font-size="14" font-weight="700" font-family="BIZ UDPGothic, sans-serif">[クラウド基盤]</text>
+<line x1="482" y1="70" x2="510" y2="70" stroke="#5A6270" stroke-width="1.5" stroke-dasharray="5 4"></line>
+<rect x="510" y="44" width="130" height="52" rx="6" fill="#FFFFFF" stroke="#A8B0BC"></rect><text x="575" y="75" text-anchor="middle" fill="#1B1F27" font-size="14" font-family="BIZ UDPGothic, sans-serif">[外部システム]</text>
+</svg>
+<figcaption style="margin-top: 20px; font-size: 12px; line-height: 1.6; color: #5A6270">図1 抽象化したアーキテクチャ(実線:データの流れ、破線:連携)</figcaption>
+</figure>
+</section>
+
+<section id="s3" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">03 PROBLEM</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">課題</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px">
+<div style="padding: 24px; border: 1px solid #D5D9E0; border-radius: 12px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 20px; line-height: 1.5; font-weight: 700">技術課題</span>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8"><li>[課題1]</li><li>[課題2]</li></ul>
+</div>
+<div style="padding: 24px; border: 1px solid #D5D9E0; border-radius: 12px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 20px; line-height: 1.5; font-weight: 700">ビジネス課題</span>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8"><li>[課題1]</li><li>[課題2]</li></ul>
+</div>
+</div>
+</section>
+
+<section id="s4" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">04 ROLE</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">担当</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="font-size: 14px; padding: 6px 16px; border-radius: 999px; background: #0E1726; color: #3DD6F5">[要件定義]</span>
+<span style="font-size: 14px; padding: 6px 16px; border-radius: 999px; background: #0E1726; color: #3DD6F5">[設計]</span>
+<span style="font-size: 14px; padding: 6px 16px; border-radius: 999px; background: #0E1726; color: #3DD6F5">[実装]</span>
+<span style="font-size: 14px; padding: 6px 16px; border-radius: 999px; border: 1px solid #A8B0BC; color: #5A6270">[運用]</span>
+</div>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8"><li>[担当範囲の説明]</li><li>[規模感:チーム構成、自分の立ち位置]</li></ul>
+</section>
+
+<section id="s5" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">05 DESIGN</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">設計のポイント</h2>
+<div style="overflow-x: auto; border: 1px solid #D5D9E0; border-radius: 12px">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.7">
+<thead><tr style="background: #0E1726; color: #E6ECF5; text-align: left"><th style="padding: 14px 20px; font-weight: 700">論点</th><th style="padding: 14px 20px; font-weight: 700">選択肢</th><th style="padding: 14px 20px; font-weight: 700; color: #3DD6F5">採用</th><th style="padding: 14px 20px; font-weight: 700">理由・トレードオフ</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #D5D9E0"><td style="padding: 16px 20px; font-weight: 700">[論点1]</td><td style="padding: 16px 20px; color: #5A6270">[A] / [B]</td><td style="padding: 16px 20px; font-weight: 700">[A]</td><td style="padding: 16px 20px; color: #5A6270">[理由]</td></tr>
+<tr style="border-top: 1px solid #D5D9E0; background: #F3F4F6"><td style="padding: 16px 20px; font-weight: 700">[論点2]</td><td style="padding: 16px 20px; color: #5A6270">[A] / [B] / [C]</td><td style="padding: 16px 20px; font-weight: 700">[B]</td><td style="padding: 16px 20px; color: #5A6270">[理由]</td></tr>
+<tr style="border-top: 1px solid #D5D9E0"><td style="padding: 16px 20px; font-weight: 700">[論点3]</td><td style="padding: 16px 20px; color: #5A6270">[A] / [B]</td><td style="padding: 16px 20px; font-weight: 700">[B]</td><td style="padding: 16px 20px; color: #5A6270">[理由]</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="s6" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">06 OUTCOME</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">成果</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px">
+<div style="padding: 28px 24px; background: #F3F4F6; border-radius: 12px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 36px; line-height: 1.2; font-weight: 700">[数値]</span><span style="font-size: 14px; color: #5A6270">[指標名]</span></div>
+<div style="padding: 28px 24px; background: #F3F4F6; border-radius: 12px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 36px; line-height: 1.2; font-weight: 700">[数値]</span><span style="font-size: 14px; color: #5A6270">[指標名]</span></div>
+<div style="padding: 28px 24px; background: #0E1726; color: #E6ECF5; border-radius: 12px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 20px; line-height: 1.5; font-weight: 700; color: #F5B84A">[定性的成果]</span><span style="font-size: 14px; color: #8FA3BF">[説明]</span></div>
+</div>
+</section>
+
+<section id="s7" style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #5A6270">07 STACK</span>
+<h2 style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">技術スタック</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<span style="padding: 6px 12px; border: 1px solid #A8B0BC; border-radius: 6px">[言語]</span>
+<span style="padding: 6px 12px; border: 1px solid #A8B0BC; border-radius: 6px">[フレームワーク]</span>
+<span style="padding: 6px 12px; border: 1px solid #A8B0BC; border-radius: 6px">[データベース]</span>
+<span style="padding: 6px 12px; border: 1px solid #A8B0BC; border-radius: 6px">[クラウド]</span>
+<span style="padding: 6px 12px; border: 1px solid #A8B0BC; border-radius: 6px">[ツール]</span>
+</div>
+</section>
+
+<nav aria-label="前後のプロジェクト" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<a href="CompProjects.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 24px; border: 1px solid #D5D9E0; border-radius: 12px; color: #1B1F27; text-decoration: none"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5A6270">← PREV</span><span style="font-size: 18px; font-weight: 700">[前のプロジェクト]</span></a>
+<a href="CompProjects.dc.html" style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; padding: 24px; border: 1px solid #D5D9E0; border-radius: 12px; color: #1B1F27; text-decoration: none"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5A6270">NEXT →</span><span style="font-size: 18px; font-weight: 700">デジタルツインプラットフォーム</span></a>
+</nav>
+</main>
+</div>
+
+<footer style="padding: 40px 24px; background: #0E1726; color: #8FA3BF; border-top: 1px solid #2A3B5C">
+<div style="max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; color: #E6ECF5">[氏名]</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">© 2026 [氏名]</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3200}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

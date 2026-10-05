@@ -1,0 +1,47 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}
+.cv{position:relative;width:960px;height:288px;background:var(--bg);overflow:hidden;font-family:var(--font-sans)}
+svg{position:absolute;inset:0}
+.ink{fill:var(--ink)}
+.cyan{fill:var(--accent-cyan)}
+.amber{fill:var(--accent-amber)}
+.surf{fill:var(--surface)}
+.dot{fill:var(--ink-muted)}
+.rlg{rx:var(--radius-lg)}
+.rsm{rx:var(--radius-sm)}
+.txt{position:absolute;left:48px;bottom:40px;max-width:440px}
+.name{margin:0;font-size:80px;line-height:.95;font-weight:700;color:var(--ink)}
+.tag{margin:16px 0 0;font-size:14px;line-height:1.6;color:var(--ink-muted)}
+</style>
+</head>
+<body>
+<div class="cv">
+<svg width="960" height="288" viewBox="0 0 960 288" aria-hidden="true">
+<!-- blocks: ink 192×288 (slab, bleeds top & bottom), accent-cyan 200×144 (bleeds right), accent-amber 96×96, surface 64×64 — sides from space-16/space-24 multiples
+     arrangement: one tall ink slab (the night) with satellites — cyan (technology) bleeding off the right edge, amber (life) low beside it
+     pattern: plus/dot grid at space-4 pitch — "precise, technical, mono, a 4px grid": the system is BIZ UDPGothic + JetBrains Mono on a 4px scale, the dots echo the 3D city's network nodes
+     scales: space-4 (16px pitch), space-16 (64), space-24 (96); radius-lg on amber, radius-sm on surface -->
+<rect class="surf rsm" x="496" y="32" width="64" height="64"/>
+<rect class="ink" x="576" y="0" width="192" height="288"/>
+<rect class="cyan" x="768" y="48" width="192" height="144"/>
+<rect class="amber rlg" x="656" y="176" width="96" height="96"/>
+<g class="dot">
+<circle cx="784" cy="224" r="2"/><circle cx="800" cy="224" r="2"/><circle cx="816" cy="224" r="2"/><circle cx="832" cy="224" r="2"/><circle cx="848" cy="224" r="2"/><circle cx="864" cy="224" r="2"/><circle cx="880" cy="224" r="2"/><circle cx="896" cy="224" r="2"/><circle cx="912" cy="224" r="2"/><circle cx="928" cy="224" r="2"/><circle cx="944" cy="224" r="2"/>
+<circle cx="784" cy="240" r="2"/><circle cx="800" cy="240" r="2"/><circle cx="816" cy="240" r="2"/><circle cx="832" cy="240" r="2"/><circle cx="848" cy="240" r="2"/><circle cx="864" cy="240" r="2"/><circle cx="880" cy="240" r="2"/><circle cx="896" cy="240" r="2"/><circle cx="912" cy="240" r="2"/><circle cx="928" cy="240" r="2"/><circle cx="944" cy="240" r="2"/>
+<circle cx="784" cy="256" r="2"/><circle cx="800" cy="256" r="2"/><circle cx="816" cy="256" r="2"/><circle cx="832" cy="256" r="2"/><circle cx="848" cy="256" r="2"/><circle cx="864" cy="256" r="2"/><circle cx="880" cy="256" r="2"/><circle cx="896" cy="256" r="2"/><circle cx="912" cy="256" r="2"/><circle cx="928" cy="256" r="2"/><circle cx="944" cy="256" r="2"/>
+</g>
+</svg>
+<div class="txt">
+<p class="name">Portfolio<br>Twin</p>
+<p class="tag">テクノロジーの夜から、暮らしの昼へ。</p>
+</div>
+</div>
+</body>
+</html>
