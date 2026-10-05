@@ -65,8 +65,8 @@ export function NetworkLines({ positions, ref }: { positions: Float32Array; ref:
       update(reveal, strength, time) {
         geometry.instanceCount = Math.floor(segments * reveal);
         const pulse = 0.8 + 0.2 * Math.sin(time * 1.6);
-        core.material.opacity = 0.55 * strength * pulse;
-        halo.material.opacity = 0.16 * strength * pulse;
+        core.material.opacity = 0.38 * strength * pulse;
+        halo.material.opacity = 0.1 * strength * pulse;
       },
     }),
     [geometry, core, halo, segments],

@@ -6,7 +6,7 @@ export const site = {
   role: "ソフトウェアエンジニア",
   url: "https://example.com", // TODO: 公開ドメインに置き換える
   description:
-    "ICTを基盤に、AIとビッグデータで生活から無駄を取り除くソフトウェアエンジニアのポートフォリオ。",
+    "IT基盤を活用して、AIとビッグデータで生活から無駄を取り除くソフトウェアエンジニアのポートフォリオ。",
   links: {
     github: "https://github.com/your-account", // TODO
     linkedin: "https://www.linkedin.com/in/your-account", // TODO

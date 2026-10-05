@@ -27,8 +27,8 @@ const KEYFRAMES: Keyframe[] = [
   { sky: "#060d1a", horizon: "#16284a", ground: "#0d1830", tint: "#5f7cb4", ambient: 0.7, sun: "#7f9fe6", sunIntensity: 0.9, sunPosition: [-12, 22, -14], camera: [-8, 6, -22], target: [0, 3, 0] },
   // 02 ビッグデータ:上空のツインを見上げる
   { sky: "#050b18", horizon: "#13254a", ground: "#0b152b", tint: "#4c679c", ambient: 0.6, sun: "#7f9fe6", sunIntensity: 0.7, sunPosition: [0, 25, 12], camera: [0, 14, 28], target: [0, 8, 0] },
-  // 03 AI:夜明けの街を巡る
-  { sky: "#16345f", horizon: "#6f93c4", ground: "#33475e", tint: "#b4c6e6", ambient: 0.9, sun: "#dfe9ff", sunIntensity: 1.5, sunPosition: [14, 26, 12], camera: [20, 12, 17], target: [-2, 0, 2] },
+  // 03 AI:夜明け。斜めから、街と上空のツインを一緒に見上げる
+  { sky: "#16345f", horizon: "#6f93c4", ground: "#33475e", tint: "#b4c6e6", ambient: 0.9, sun: "#dfe9ff", sunIntensity: 1.5, sunPosition: [14, 26, 12], camera: [25, 8, 24], target: [-2, 7, 0] },
   // 04 ビジョン:夕日。引きの俯瞰
   { sky: "#c9663f", horizon: "#f6c28b", ground: "#6f8a58", tint: "#ffe0c2", ambient: 1.0, sun: "#ffc98f", sunIntensity: 2.2, sunPosition: [-26, 9, -12], camera: [0, 19, 36], target: [0, 4, 4] },
 ];

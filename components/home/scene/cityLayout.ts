@@ -19,10 +19,8 @@ export function seededRandom(seed: number) {
 
 /** 1区画の大きさ(道路タイルもこの大きさ) */
 export const STEP = 2.4;
-/** 道路の長さ(車が走る範囲) */
-export const ROAD_LENGTH = 40;
 /** 道路タイルを中心から何枚ぶん延ばすか */
-const ROAD_TILES = 20;
+export const ROAD_TILES = 20;
 /** 車の拡大率 */
 export const CAR_SCALE = 0.36;
 
@@ -104,23 +102,23 @@ export function createLayout(models: CityModels): CityLayout {
   return { instances, rooftops, homes };
 }
 
-/** 屋上どうし(と地面)を結ぶネットワークの線分(LineSegments 用) */
+/** 屋上どうしを結ぶネットワークの線分(LineSegments 用)。各屋上を、近い2つの屋上とつなぐ */
 export function networkPositions({ rooftops, homes }: CityLayout) {
   const nodes = [...rooftops, ...homes];
   const out: number[] = [];
+  const linked = new Set<string>();
   nodes.forEach((a, i) => {
-    let best = -1;
-    let bestDist = Infinity;
-    nodes.forEach((b, j) => {
-      if (j <= i) return;
-      const d = Math.hypot(a[0] - b[0], a[2] - b[2]);
-      if (d < bestDist) {
-        bestDist = d;
-        best = j;
-      }
-    });
-    if (best >= 0 && bestDist < 4) out.push(...a, ...nodes[best]);
-    out.push(a[0], a[1], a[2], a[0], 0.05, a[2]);
+    const nearest = nodes
+      .map((b, j) => ({ j, d: Math.hypot(a[0] - b[0], a[2] - b[2]) }))
+      .filter(({ j, d }) => j !== i && d < 5)
+      .sort((p, q) => p.d - q.d)
+      .slice(0, 2);
+    for (const { j } of nearest) {
+      const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+      if (linked.has(key)) continue;
+      linked.add(key);
+      out.push(...a, ...nodes[j]);
+    }
   });
   return new Float32Array(out);
 }
