@@ -20,7 +20,7 @@ export function seededRandom(seed: number) {
 /** 1区画の大きさ(道路タイルもこの大きさ) */
 export const STEP = 2.4;
 /** 道路の長さ(車が走る範囲) */
-export const ROAD_LENGTH = 32;
+export const ROAD_LENGTH = 40;
 /** 車の拡大率 */
 export const CAR_SCALE = 0.36;
 
@@ -128,6 +128,6 @@ export function particleOrigins({ rooftops, homes }: CityLayout) {
   return [
     ...rooftops,
     ...homes,
-    ...Array.from({ length: 12 }, (_, i) => [-ROAD_LENGTH / 2 + i * 2.7, 0.3, 0] as [number, number, number]),
+    ...Array.from({ length: 12 }, (_, i) => [-14 + i * 2.5, 0.3, 0] as [number, number, number]),
   ];
 }

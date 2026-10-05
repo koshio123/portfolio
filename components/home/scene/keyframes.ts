@@ -21,8 +21,8 @@ type Keyframe = {
 };
 
 const KEYFRAMES: Keyframe[] = [
-  // 00 混沌:灰色にくすんだ夕方。上空の遠景
-  { sky: "#3b4048", horizon: "#6b6a66", ground: "#3a3d40", tint: "#a4a19b", ambient: 0.9, sun: "#d8c8ae", sunIntensity: 1.2, sunPosition: [14, 22, 8], camera: [0, 30, 40], target: [0, 0, 0] },
+  // 00 WASTE(混沌):灰色にくすんだ夕方。街が画面いっぱいに収まる俯瞰
+  { sky: "#3b4048", horizon: "#6b6a66", ground: "#3a3d40", tint: "#a4a19b", ambient: 0.9, sun: "#d8c8ae", sunIntensity: 1.2, sunPosition: [14, 22, 8], camera: [0, 17, 21], target: [0, 0, -1] },
   // 01 ICT:夜。地表近く、ビル街の裏側から
   { sky: "#060d1a", horizon: "#16284a", ground: "#0d1830", tint: "#5f7cb4", ambient: 0.7, sun: "#7f9fe6", sunIntensity: 0.9, sunPosition: [-12, 22, -14], camera: [-8, 6, -22], target: [0, 3, 0] },
   // 02 ビッグデータ:上空のツインを見上げる

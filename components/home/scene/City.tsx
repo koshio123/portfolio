@@ -3,21 +3,13 @@
 import { useLayoutEffect, useMemo, useRef, type RefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import {
-  CAR_MODELS,
-  CAR_SCALE,
-  createLayout,
-  networkPositions,
-  particleOrigins,
-  ROAD_LENGTH,
-  seededRandom,
-} from "./cityLayout";
+import { CAR_MODELS, CAR_SCALE, createLayout, networkPositions, particleOrigins, seededRandom } from "./cityLayout";
 import { phases, sampleKeyframes } from "./keyframes";
 import { Helpers } from "./Helpers";
 import { Sky } from "./Sky";
+import { advanceTravel, carCountByModel, CARS, placeCar } from "./traffic";
 import { useCityModels, type ModelData } from "./useCityModels";
 
-const CAR_COUNT = 16; // 2車線ぶん
 const PARTICLE_COUNT = 420;
 const SIGNAL_COUNT = 160;
 const TWIN_Y = 13; // 上空のデジタルツインの高さ
@@ -28,6 +20,7 @@ const GLOW_GREEN = new THREE.Color("#5be3a1").multiplyScalar(2);
 
 const tmp = new THREE.Object3D();
 const lookAt = new THREE.Vector3();
+const carPose = { position: new THREE.Vector3(), heading: 0, visible: 1 };
 
 /** 粒子の起点・速度・位相を固定シードで作る */
 function makeParticles(origins: [number, number, number][], count: number, seed: number) {
@@ -106,12 +99,6 @@ export function City({ progress, shadows, onReady }: Props) {
     }
     return byModel;
   }, [models]);
-
-  // 車:モデルを順番に割り当てる
-  const cars = useMemo(
-    () => Array.from({ length: CAR_COUNT }, (_, i) => ({ model: CAR_MODELS[i % CAR_MODELS.length], index: Math.floor(i / CAR_MODELS.length) })),
-    [],
-  );
 
   const ambient = useRef<THREE.AmbientLight>(null!);
   const sun = useRef<THREE.DirectionalLight>(null!);
@@ -202,21 +189,15 @@ export function City({ progress, shadows, onReady }: Props) {
     signalGeo.current.attributes.position.needsUpdate = true;
     signalMat.current.opacity = ph.optimize * (1 - ph.sunset);
 
-    // 車:混沌では渋滞、最適化後は等間隔に流れる
-    travel.current += delta * THREE.MathUtils.lerp(0.3, 5, ph.optimize);
-    const perLane = CAR_COUNT / 2;
-    const spacing = ROAD_LENGTH / perLane;
-    cars.forEach((car, i) => {
-      const lane = i % 2 === 0 ? 1 : -1;
-      const n = Math.floor(i / 2);
-      const even = ((((n * spacing + travel.current) % ROAD_LENGTH) + ROAD_LENGTH) % ROAD_LENGTH) - ROAD_LENGTH / 2;
-      const jam = -3.5 + n * 1.05;
-      tmp.position.set(THREE.MathUtils.lerp(even, jam, ph.chaos) * lane, 0.03, lane * 0.5);
-      tmp.rotation.set(0, (lane * Math.PI) / 2, 0);
-      tmp.scale.setScalar(CAR_SCALE);
+    // 車(動きの規則は traffic.ts)
+    travel.current = advanceTravel(travel.current, delta, ph.chaos, ph.optimize);
+    CARS.forEach((car, i) => {
+      placeCar(i, travel.current, ph.chaos, carPose);
+      tmp.position.copy(carPose.position).setY(0.03);
+      tmp.rotation.set(0, carPose.heading, 0);
+      tmp.scale.setScalar(CAR_SCALE * carPose.visible);
       tmp.updateMatrix();
-      const mesh = carMeshes.current[car.model];
-      if (mesh) mesh.setMatrixAt(car.index, tmp.matrix);
+      carMeshes.current[car.model]?.setMatrixAt(car.index, tmp.matrix);
     });
     for (const mesh of Object.values(carMeshes.current)) mesh.instanceMatrix.needsUpdate = true;
 
@@ -273,7 +254,7 @@ export function City({ progress, shadows, onReady }: Props) {
           ref={(mesh) => {
             if (mesh) carMeshes.current[id] = mesh;
           }}
-          args={[models[id].geometry, tinted[id], cars.filter((c) => c.model === id).length]}
+          args={[models[id].geometry, tinted[id], carCountByModel(id)]}
           castShadow={shadows}
           frustumCulled={false}
         />
