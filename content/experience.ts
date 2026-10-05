@@ -30,18 +30,41 @@ export type SkillGroup = {
 
 export const careers: Career[] = [
   {
-    period: "[YYYY.MM] – 現在",
-    company: "[会社名]",
-    title: "[役職] — EVを活用したエネルギーマネジメントシステムの開発",
+    period: "2025.01 – 現在",
+    company: "トヨタ自動車",
+    title: "Software Engineer — エネルギーマネジメントシステム",
     current: true,
-    highlights: ["[主な業務・成果]", "[主な業務・成果]"],
-    projects: ["v2x-smart-charging", "digital-twin-platform", "fault-diagnosis"],
+    highlights: [
+      "販売店・工場・家庭向けEVエネルギーマネジメント基盤のAWSバックエンド(Python、FastAPI、PostgreSQL)を設計・開発",
+      "電力需要と再エネ発電量の時系列予測モデルを、試作から本番運用まで担当",
+      "コスト・充電器の空き・運用制約を考慮したEV充放電の最適化エンジンを設計・開発",
+      "事業部門・海外チーム・社外ベンダーと連携し、要件を本番システムに落とし込む",
+    ],
+    projects: ["v2x-smart-charging"],
   },
   {
-    period: "[YYYY.MM] – [YYYY.MM]",
-    company: "[会社名]",
-    title: "[役職]",
-    highlights: ["[主な業務・成果]"],
+    period: "2023.01 – 2024.12",
+    company: "ウーブン・バイ・トヨタ(出向)",
+    title: "Software Engineer — デジタルツインプラットフォーム",
+    highlights: [
+      "シミュレーションの設計・可視化・再生のためのフロントエンドと社内ツールを開発(Web、デスクトップ)",
+      "3Dシナリオビルダー(React、Three.js)を設計・実装し、シナリオ作成を効率化",
+      "シミュレーションの分析とデバッグ用の可視化ダッシュボード(React、D3.js)を開発",
+      "シミュレーション再生とシナリオ検証用のUnityデスクトップアプリを開発",
+    ],
+    projects: ["digital-twin-platform"],
+  },
+  {
+    period: "2019.04 – 2022.12",
+    company: "トヨタ自動車",
+    title: "Software Engineer — 車両故障診断システム",
+    highlights: [
+      "市場車両のダウンタイム削減と早期検知のための故障診断システムを共同開発",
+      "車載データ収集アプリと、故障事例分析用のWebアプリをフルスタックで開発",
+      "機械学習で車両故障の検知と分類を行い、診断精度を向上",
+      "要件定義から設計・実装・テスト・デプロイまで一貫して担当",
+    ],
+    projects: ["fault-diagnosis"],
   },
 ];
 
