@@ -25,7 +25,7 @@ export default function CityCanvas({ progress, active, onReady }: Props) {
   return (
     <div className="absolute inset-0" aria-hidden>
       <Canvas
-        camera={{ fov: 45, near: 0.1, far: 400, position: [0, 17, 21] }}
+        camera={{ fov: 45, near: 0.1, far: 400, position: [0, 17, 26] }}
         dpr={high ? [1, 1.75] : [1, 1.25]}
         shadows={high}
         frameloop={active ? "always" : "never"}

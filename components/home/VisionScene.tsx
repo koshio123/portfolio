@@ -105,9 +105,6 @@ export function VisionScene() {
   const current = acts[act];
   // 3D か静止画が表示されてから、キャプションなどを重ねる
   const visible = decided && (!show3D || ready);
-  // 第4幕は夕日で背景が明るくなるため、文字を暗くする
-  const onBright = show3D && act === acts.length - 1;
-
   return (
     <section
       ref={sectionRef}
@@ -140,15 +137,18 @@ export function VisionScene() {
           </p>
         )}
 
+        {/* 文字を読みやすくするため、下側に夜色のグラデーションを敷く */}
+        {visible && (
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-bg/90 to-transparent" />
+        )}
+
         {visible && current.title && (
           <div
             key={act}
             aria-live="polite"
-            className={`absolute right-4 bottom-24 left-4 flex max-w-3xl animate-fade-up flex-col gap-3 md:bottom-18 md:left-14 ${
-              onBright ? "text-on-accent" : "text-ink"
-            }`}
+            className="absolute right-4 bottom-24 left-4 flex max-w-3xl animate-fade-up flex-col gap-3 md:bottom-18 md:left-14"
           >
-            <span className={`label ${onBright ? "text-on-accent" : "text-link"}`}>{current.kicker}</span>
+            <span className="label text-link">{current.kicker}</span>
             <span className="text-[2rem] leading-tight font-bold [word-break:auto-phrase] md:text-display">{current.title}</span>
           </div>
         )}
@@ -156,36 +156,28 @@ export function VisionScene() {
         <ol
           aria-label="シーンの進行"
           hidden={!ready}
-          className={`absolute top-1/2 right-6 hidden -translate-y-1/2 flex-col gap-3.5 font-mono text-xs md:right-14 md:flex ${
-            onBright ? "text-on-accent" : "text-ink-muted"
-          }`}
+          className="absolute top-1/2 right-4 hidden -translate-y-1/2 flex-col gap-3.5 rounded-lg bg-bg/75 px-4 py-4 font-mono text-xs text-ink-muted backdrop-blur-sm md:right-10 md:flex"
         >
           {acts.map((a, i) => (
             <li
               key={a.step}
               aria-current={i === act ? "step" : undefined}
-              className={`flex items-center gap-3 ${i === act && !onBright ? "text-link" : ""}`}
+              className={`flex items-center gap-3 ${i === act ? "text-link" : ""}`}
             >
-              <span
-                className={`size-2 rounded-full border border-current ${i === act ? "bg-current" : ""}`}
-              />
+              <span className={`size-2 rounded-full border border-current ${i === act ? "bg-current" : ""}`} />
               {a.step}
             </li>
           ))}
         </ol>
 
         {ready && act === 0 && (
-          <span className="label absolute bottom-8 left-1/2 -translate-x-1/2 tracking-[0.2em] text-ink-muted">
+          <span className="label absolute bottom-8 left-1/2 -translate-x-1/2 tracking-[0.2em] text-ink">
             SCROLL ↓
           </span>
         )}
         <a
           href="#vision"
-          className={`absolute right-4 bottom-6 inline-flex min-h-11 items-center rounded-md border px-5 text-sm font-bold no-underline md:right-12 ${
-            onBright
-              ? "border-on-accent text-on-accent hover:text-on-accent"
-              : "border-line-strong text-ink hover:text-ink"
-          }`}
+          className="absolute right-4 bottom-6 inline-flex min-h-11 items-center rounded-md border border-line-strong bg-bg/75 px-5 text-sm font-bold text-ink no-underline backdrop-blur-sm hover:text-ink md:right-12"
         >
           スキップ →
         </a>

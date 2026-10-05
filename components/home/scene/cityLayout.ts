@@ -21,6 +21,10 @@ export function seededRandom(seed: number) {
 export const STEP = 2.4;
 /** 道路の長さ(車が走る範囲) */
 export const ROAD_LENGTH = 40;
+/** 道路タイルを中心から何枚ぶん延ばすか */
+const ROAD_TILES = 20;
+/** 郊外を中心から何区画ぶん広げるか */
+const OUTSKIRTS = 12;
 /** 車の拡大率 */
 export const CAR_SCALE = 0.36;
 
@@ -89,8 +93,22 @@ export function createLayout(models: CityModels): CityLayout {
     }
   }
 
-  // 道路(地平線まで延ばす)
-  for (let k = -9; k <= 9; k++) {
+  // 郊外:中心街の外側に、木とまばらな家・低い建物を置く(街の外が空き地に見えないように)
+  const randOut = seededRandom(19);
+  for (let ix = -OUTSKIRTS; ix <= OUTSKIRTS; ix++) {
+    for (let iz = -OUTSKIRTS; iz <= OUTSKIRTS; iz++) {
+      if (Math.max(Math.abs(ix), Math.abs(iz)) <= 5 || ix === 0 || iz === 0) continue;
+      const x = ix * STEP + (randOut() - 0.5) * 0.8;
+      const z = iz * STEP + (randOut() - 0.5) * 0.8;
+      const r = randOut();
+      if (r < 0.5) place(randOut() < 0.5 ? "tree-large" : "tree-small", x, z, 2.6, 0);
+      else if (r < 0.68) place(HOUSES[Math.floor(randOut() * HOUSES.length)], x, z, 1.3, Math.floor(randOut() * 4) * (Math.PI / 2));
+      else if (r < 0.76) place(BUILDINGS[Math.floor(randOut() * 5)], x, z, 1.4, Math.floor(randOut() * 4) * (Math.PI / 2));
+    }
+  }
+
+  // 道路(フォグに溶けるところまで延ばし、端が見えないようにする)
+  for (let k = -ROAD_TILES; k <= ROAD_TILES; k++) {
     if (k === 0) {
       place("road-crossroad", 0, 0, STEP, 0);
       continue;
