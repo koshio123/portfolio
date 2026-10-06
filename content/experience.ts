@@ -45,8 +45,8 @@ export const careers: Career[] = [
   },
   {
     period: "2023.01 – 2024.12",
-    company: "ウーブン・バイ・トヨタ(出向)",
-    title: "Software Engineer — デジタルツインプラットフォーム",
+    company: "Woven by Toyota(出向)",
+    title: "Software Engineer — Digital Twin Platform",
     highlights: [
       "シミュレーションの設計・可視化・再生のためのフロントエンドと社内ツールを開発(Web、デスクトップ)",
       "3Dシナリオビルダー(React、Three.js)を設計・実装し、シナリオ作成を効率化",

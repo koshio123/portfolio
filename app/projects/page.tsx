@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <div className="container-page flex flex-col gap-12 py-20">
-      <SectionHeading as="h1" label="PROJECTS" title="プロジェクト" description="[ページの説明 — 1行]" />
+      <SectionHeading as="h1" label="PROJECTS" title="プロジェクト" description="業務と個人開発で取り組んだプロジェクト" />
       <ProjectsBrowser projects={projects} />
     </div>
   );

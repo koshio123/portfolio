@@ -20,8 +20,8 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         <h3 className="text-h3 font-bold">{project.title}</h3>
         <p className="text-sm leading-relaxed text-ink-muted">{project.summary}</p>
         {large && (
-          <p className="mt-auto flex flex-wrap gap-3 pt-2 font-mono text-xs text-ink-muted">
-            {project.stack.slice(0, 4).map((s) => (
+          <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2 font-mono text-xs text-ink-muted">
+            {project.stack.map((s) => (
               <span key={s}>{s}</span>
             ))}
           </p>
