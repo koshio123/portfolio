@@ -11,11 +11,7 @@ export const metadata: Metadata = {
   description: "自己紹介、大切にしていること、連絡先",
 };
 
-const intro = [
-  "自動車とエネルギーの領域で、7年以上ソフトウェアを開発してきたエンジニア。車両の故障診断システムに始まり、Woven by Toyota でのデジタルツインプラットフォームを経て、現在はトヨタ自動車でEVのエネルギーマネジメント基盤を担当している。",
-  "電力需要と再エネ発電量の予測、数理最適化による充放電スケジューリングを、AWS上のサービスとして要件定義から運用まで手がける。フロントエンドや3D、機械学習まで、課題に合わせて必要な技術を横断するのが強み。",
-  "データとAIで暮らしの無駄を減らし、人が有益なことに時間を使える仕組みをつくりたい。",
-];
+const intro = "主に自動車 / エネルギーの領域でソフトウェアを開発してきた犬好きエンジニア";
 
 const values = [
   { title: "[価値観1]", text: "[説明]" },
@@ -24,8 +20,8 @@ const values = [
 ];
 
 const contacts = [
-  { label: "GITHUB", href: site.links.github, Icon: GitHubIcon },
-  { label: "LINKEDIN", href: site.links.linkedin, Icon: LinkedInIcon },
+  { label: "GitHub", href: site.links.github, Icon: GitHubIcon },
+  { label: "LinkedIn", href: site.links.linkedin, Icon: LinkedInIcon },
 ];
 
 export default function AboutPage() {
@@ -46,11 +42,7 @@ export default function AboutPage() {
           <span className="label text-ink-muted">ABOUT</span>
           <h1 className="text-h1 font-bold">{site.name}</h1>
           <p className="text-ink-muted">{site.role}</p>
-          {intro.map((text) => (
-            <p key={text} className="leading-[1.9]">
-              {text}
-            </p>
-          ))}
+          <p className="leading-[1.9]">{intro}</p>
           <div className="mt-2 flex flex-wrap gap-3">
             {site.resumePdf && (
               <a
@@ -105,10 +97,7 @@ export default function AboutPage() {
                 <span data-theme="night" className="inline-flex size-11 items-center justify-center rounded-md bg-bg text-ink">
                   <Icon />
                 </span>
-                <span className="flex flex-col">
-                  <span className="label text-ink-muted">{label}</span>
-                  <span className="font-bold break-all">{href}</span>
-                </span>
+                <span className="font-bold">{label}</span>
               </a>
             </li>
           ))}
