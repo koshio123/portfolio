@@ -97,6 +97,14 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
                 <dd>{dd}</dd>
               </div>
             ))}
+            {project.repo && (
+              <div className="flex flex-col gap-1">
+                <dt className="label text-ink-muted">REPOSITORY</dt>
+                <dd>
+                  <a href={project.repo}>{project.repo.replace("https://", "")}</a>
+                </dd>
+              </div>
+            )}
           </dl>
         </div>
       </div>
