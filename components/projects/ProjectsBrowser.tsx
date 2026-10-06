@@ -46,7 +46,7 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
           <h2 className="text-h2 font-bold">業務プロジェクト</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {work.map((p) => (
-              <ProjectCard key={p.slug} project={p} large />
+              <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>

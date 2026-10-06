@@ -100,7 +100,7 @@ export const projects: Project[] = [
     title: "credit-memo-agent",
     kind: "personal",
     summary:
-      "有価証券報告書から、出典つきの与信メモの草案を生成するマルチエージェント。生成した主張は検証エージェントが出典と照合し、財務比率はコードで再計算し検証する(開発中)",
+      "有価証券報告書を対象にRAGを構築し、出典つきの与信メモの草案を生成するマルチエージェント。生成した主張は検証エージェントが出典と照合し、財務比率はコードで再計算し検証する(開発中)",
     period: "2026.09 – 現在",
     repo: "https://github.com/koshio123/credit-memo-agent",
     problems: {
@@ -148,6 +148,7 @@ export const projects: Project[] = [
       "Ollama",
       "MCP",
       "Docker",
+      "RAG",
     ],
   },
   {

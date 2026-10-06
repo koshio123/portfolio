@@ -3,14 +3,8 @@ import Link from "next/link";
 import type { Project } from "@/content/projects";
 import { KindTag } from "@/components/ui/Tag";
 
-/** Projects 一覧のカード。large は業務プロジェクト用で、技術スタックも出す */
-export function ProjectCard({
-  project,
-  large = false,
-}: {
-  project: Project;
-  large?: boolean;
-}) {
+/** Projects 一覧のカード */
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -33,13 +27,11 @@ export function ProjectCard({
         <p className="text-sm leading-relaxed text-ink-muted">
           {project.summary}
         </p>
-        {large && (
-          <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2 font-mono text-xs text-ink-muted">
-            {project.stack.map((s) => (
-              <span key={s}>{s}</span>
-            ))}
-          </p>
-        )}
+        <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2 font-mono text-xs text-ink-muted">
+          {project.stack.map((s) => (
+            <span key={s}>{s}</span>
+          ))}
+        </p>
       </div>
     </Link>
   );
