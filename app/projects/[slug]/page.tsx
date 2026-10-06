@@ -19,7 +19,7 @@ export async function generateMetadata(props: PageProps<"/projects/[slug]">): Pr
 
 const sections = [
   { id: "overview", label: "OVERVIEW", title: "概要" },
-  { id: "image", label: "IMAGE", title: "イメージ図" },
+  { id: "image", label: "IMAGES", title: "画像" },
   { id: "problem", label: "PROBLEM", title: "課題" },
   { id: "role", label: "ROLE", title: "担当" },
   { id: "design", label: "DESIGN", title: "設計のポイント" },
@@ -50,7 +50,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   const index = projects.indexOf(project);
   const prev = projects[index - 1];
   const next = projects[index + 1];
-  const { role, problems, decisions = [], outcomes = [] } = project;
+  const { role, problems, images = [], decisions = [], outcomes = [] } = project;
   const problemGroups = (
     [
       ["解決したい課題", problems?.purpose ?? []],
@@ -61,7 +61,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   // 中身のあるセクションだけを出す
   const content: Record<SectionInfo["id"], boolean> = {
     overview: true,
-    image: project.image !== undefined,
+    image: images.length > 0,
     problem: problemGroups.length > 0,
     role: role !== undefined,
     design: decisions.length > 0,
@@ -124,15 +124,21 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
 
           {section(
             "image",
-            project.image ? (
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
-                width={project.image.width}
-                height={project.image.height}
-                className="h-auto w-full rounded-lg border border-line"
-              />
-            ) : null,
+            <div className="flex flex-col gap-8">
+              {images.map((image) => (
+                <figure key={image.src} className="flex flex-col gap-3">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    sizes="(min-width: 1024px) 800px, 100vw"
+                    className="h-auto w-full rounded-lg border border-line"
+                  />
+                  {image.caption && <figcaption className="text-sm text-ink-muted">{image.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>,
           )}
 
           {section(

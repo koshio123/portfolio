@@ -5,6 +5,16 @@
 
 export type ProjectKind = "work" | "personal";
 
+export type ProjectImage = {
+  src: string;
+  /** 画像の内容の説明(読み上げ用) */
+  alt: string;
+  /** 画像の下に出す説明 */
+  caption?: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -12,8 +22,11 @@ export type Project = {
   /** 概要:何を、誰のために作ったか(1〜2行) */
   summary: string;
   period: string;
-  /** 画面や構成図の画像(public/ 以下のパス)。あるときだけ「イメージ図」として表示する */
-  image?: { src: string; alt: string; width: number; height: number };
+  /**
+   * 画像(アーキテクチャ図、画面、イメージ図など)。public/projects/<slug>/ に置いてパスを書く。
+   * 1枚目は一覧のカードにも出す。width・height は画像の実寸
+   */
+  images?: ProjectImage[];
   stack: string[];
   /** 公開している GitHub リポジトリの URL */
   repo?: string;
@@ -215,6 +228,15 @@ export const projects: Project[] = [
       "ビジョンと経歴を伝えるためのポートフォリオサイト(このサイト)。Homeはスクロールで進む3Dのミニチュア都市",
     period: "2026.10 – 現在",
     repo: "https://github.com/koshio123/portfolio",
+    images: [
+      {
+        src: "/projects/portfolio/home.jpg",
+        alt: "ミニチュア都市の上空にデジタルツインが浮かぶ、Homeの3Dシーン",
+        caption: "Homeの3Dシーン(03 AI)",
+        width: 1600,
+        height: 923,
+      },
+    ],
     problems: {
       purpose: [
         "職務経歴書だけでは伝わりにくいビジョンを、短い時間で伝える",

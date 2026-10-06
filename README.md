@@ -107,3 +107,14 @@ docs/design/              設計時の絵コンテ・ワイヤーフレーム・
 ## デプロイ
 
 Vercel にリポジトリをインポートするだけで動きます。公開前に `content/site.ts` の `url` を本番ドメインにしてください(OGP・サイトマップに使われます)。
+
+## プロジェクトの画像を追加する
+
+1. 画像を `public/projects/<slug>/` に置く(例: `public/projects/v2x-smart-charging/architecture.png`)。
+2. `content/projects.ts` の該当プロジェクトに `images` を書く。1枚目が一覧のカードにも出る。
+
+```ts
+images: [
+  { src: "/projects/v2x-smart-charging/architecture.png", alt: "構成の説明", caption: "全体構成", width: 1600, height: 900 },
+],
+```
