@@ -4,7 +4,13 @@ import type { Project } from "@/content/projects";
 import { KindTag } from "@/components/ui/Tag";
 
 /** Projects 一覧のカード。large は業務プロジェクト用で、技術スタックも出す */
-export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+export function ProjectCard({
+  project,
+  large = false,
+}: {
+  project: Project;
+  large?: boolean;
+}) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -12,13 +18,21 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
     >
       {project.image && (
         <div className="relative h-48 bg-surface">
-          <Image src={project.image.src} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+          <Image
+            src={project.image.src}
+            alt=""
+            fill
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="object-cover"
+          />
         </div>
       )}
       <div className="flex flex-1 flex-col gap-2.5 p-6">
         <KindTag kind={project.kind} />
         <h3 className="text-h3 font-bold">{project.title}</h3>
-        <p className="text-sm leading-relaxed text-ink-muted">{project.summary}</p>
+        <p className="text-sm leading-relaxed text-ink-muted">
+          {project.summary}
+        </p>
         {large && (
           <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2 font-mono text-xs text-ink-muted">
             {project.stack.map((s) => (
