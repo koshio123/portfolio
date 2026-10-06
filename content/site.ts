@@ -4,7 +4,7 @@
 export const site = {
   name: "Kentaro Koshio",
   role: "Software Engineer / System Engineer",
-  url: "https://example.com", // TODO: 公開ドメインに置き換える
+  url: "https://kkoshio.com",
   description:
     "IT基盤を活用して、AIとビッグデータで生活から無駄を取り除くソフトウェアエンジニアのポートフォリオ。",
   links: {
