@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" width="1600" height="920" font-family="'Noto Sans CJK JP','Hiragino Sans',sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8FA3BF"/></marker></defs>
+<rect width="1600" height="920" fill="#0E1726"/>
+<rect x="270" y="130" width="1300" height="560" rx="14" fill="none" stroke="#2A3B5C" stroke-width="1.5"/>
+<text x="294" y="162" fill="#8FA3BF" font-size="14" letter-spacing="1.5" font-family="'JetBrains Mono','DejaVu Sans Mono',monospace">CAREER COPILOT (AWS)</text>
+<text x="40" y="60" fill="#E6ECF5" font-size="26" font-weight="700">career-copilot 構成図(目標の構成)</text>
+<path d="M220 225 H300" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M540 225 H620" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/><text x="580" y="213" fill="#8FA3BF" font-size="13" text-anchor="middle">/api</text>
+<path d="M880 225 H980" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/><text x="930" y="213" fill="#8FA3BF" font-size="13" text-anchor="middle">タスク投入</text>
+<path d="M1090 330 V270" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1200 210 H1300" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1200 245 H1240 V375 H1300" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640 270 V310 H440 V790" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/><text x="428" y="560" fill="#8FA3BF" font-size="13" text-anchor="end">OTPメール</text>
+<path d="M660 270 V560" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800 270 V560" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M860 270 V450 H1130 V560" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1340 260 V295 H1270 V500 H940 V560" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/><text x="1200" y="522" fill="#8FA3BF" font-size="13" text-anchor="middle">結果を保存</text>
+<path d="M1400 420 V605 H1240" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1480 420 V790" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1420 170 V110" fill="none" stroke="#8FA3BF" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="40" y="180" width="180" height="90" rx="8" fill="none" stroke="#8FA3BF" stroke-width="1.5" stroke-dasharray="6 5"/><text x="130.0" y="221.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">利用者</text><text x="130.0" y="247.0" text-anchor="middle" fill="#8FA3BF" font-size="14">求職者</text>
+<rect x="300" y="180" width="240" height="90" rx="8" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="420.0" y="221.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">SPA</text><text x="420.0" y="247.0" text-anchor="middle" fill="#8FA3BF" font-size="14">Vite + React / S3 + CloudFront</text>
+<rect x="620" y="180" width="260" height="90" rx="8" fill="#22345A" stroke="#3DD6F5" stroke-width="1.5"/><text x="750.0" y="221.0" text-anchor="middle" fill="#3DD6F5" font-size="20" font-weight="700">API</text><text x="750.0" y="247.0" text-anchor="middle" fill="#8FA3BF" font-size="14">FastAPI / Lambda + API Gateway</text>
+<rect x="980" y="180" width="220" height="90" rx="8" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="1090.0" y="221.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">タスクキュー</text><text x="1090.0" y="247.0" text-anchor="middle" fill="#8FA3BF" font-size="14">SQS(DLQつき)</text>
+<rect x="980" y="330" width="220" height="80" rx="8" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="1090.0" y="366.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">定期実行</text><text x="1090.0" y="392.0" text-anchor="middle" fill="#8FA3BF" font-size="14">EventBridge + Lambda</text>
+<rect x="1300" y="170" width="240" height="90" rx="8" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="1420.0" y="211.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">短時間ワーカー</text><text x="1420.0" y="237.0" text-anchor="middle" fill="#8FA3BF" font-size="14">Lambda:構造化・ギャップ分析</text>
+<rect x="1300" y="330" width="240" height="90" rx="8" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="1420.0" y="371.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">ブラウザワーカー</text><text x="1420.0" y="397.0" text-anchor="middle" fill="#8FA3BF" font-size="14">Fargate + Playwright</text>
+<rect x="500" y="560" width="220" height="90" rx="14" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="610.0" y="601.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">認証ストア</text><text x="610.0" y="627.0" text-anchor="middle" fill="#8FA3BF" font-size="14">DynamoDB(TTL)</text>
+<rect x="760" y="560" width="220" height="90" rx="14" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="870.0" y="601.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">データベース</text><text x="870.0" y="627.0" text-anchor="middle" fill="#8FA3BF" font-size="14">PostgreSQL(RDS)</text>
+<rect x="1020" y="560" width="220" height="90" rx="14" fill="#13203A" stroke="#4A5F82" stroke-width="1.5"/><text x="1130.0" y="601.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">オブジェクト</text><text x="1130.0" y="627.0" text-anchor="middle" fill="#8FA3BF" font-size="14">S3:レジュメ・取得HTML</text>
+<rect x="1300" y="20" width="240" height="90" rx="8" fill="none" stroke="#8FA3BF" stroke-width="1.5" stroke-dasharray="6 5"/><text x="1420.0" y="61.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">Anthropic API</text><text x="1420.0" y="87.0" text-anchor="middle" fill="#8FA3BF" font-size="14">LLMによる構造化と分析</text>
+<rect x="330" y="790" width="220" height="90" rx="8" fill="none" stroke="#8FA3BF" stroke-width="1.5" stroke-dasharray="6 5"/><text x="440.0" y="831.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">Amazon SES</text><text x="440.0" y="857.0" text-anchor="middle" fill="#8FA3BF" font-size="14">メールでOTPを送信</text>
+<rect x="1360" y="790" width="220" height="90" rx="8" fill="none" stroke="#8FA3BF" stroke-width="1.5" stroke-dasharray="6 5"/><text x="1470.0" y="831.0" text-anchor="middle" fill="#E6ECF5" font-size="20" font-weight="700">求人サイト</text><text x="1470.0" y="857.0" text-anchor="middle" fill="#8FA3BF" font-size="14">ATS公開API・JSON-LD</text>
+</svg>

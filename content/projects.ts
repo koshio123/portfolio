@@ -116,6 +116,15 @@ export const projects: Project[] = [
       "有価証券報告書を対象にRAGを構築し、出典つきの与信メモの草案を生成するマルチエージェント。生成した主張は検証エージェントが出典と照合し、財務比率はコードで再計算し検証する(開発中)",
     period: "2026.09 – 現在",
     repo: "https://github.com/koshio123/credit-memo-agent",
+    images: [
+      {
+        src: "/projects/credit-memo-agent/memo.png",
+        alt: "生成された与信メモの草案。主張ごとに出典番号と検証結果が付き、数値の算式が展開されている",
+        caption: "生成した与信メモの草案。主張ごとに出典と検証結果(Verifier)が付き、数値は算式までたどれる",
+        width: 893,
+        height: 898,
+      },
+    ],
     problems: {
       purpose: [
         "有価証券報告書を読み込み、根拠を整理して与信メモにまとめる作業には時間がかかる",
@@ -172,6 +181,15 @@ export const projects: Project[] = [
       "転職活動を支援するWebアプリ。求人を取り込み、職務経歴とのギャップを分析し、応募先ごとにレジュメを調整する(開発中)",
     period: "2026.08 – 現在",
     repo: "https://github.com/koshio123/career-copilot",
+    images: [
+      {
+        src: "/projects/career-copilot/architecture.png",
+        alt: "SPAからAPI、タスクキュー、2種類のワーカー、データストア、外部サービスへつながる構成図",
+        caption: "構成図(目標の構成)。短時間の処理はLambda、ブラウザでの取得はFargateに分ける",
+        width: 1600,
+        height: 920,
+      },
+    ],
     problems: {
       purpose: [
         "求人ごとに、自分の経験やスキルの何が足りないかを把握するのに手間がかかる",
@@ -230,10 +248,10 @@ export const projects: Project[] = [
     repo: "https://github.com/koshio123/portfolio",
     images: [
       {
-        src: "/projects/portfolio/home.jpg",
-        alt: "ミニチュア都市の上空にデジタルツインが浮かぶ、Homeの3Dシーン",
+        src: "/projects/portfolio/home.png",
+        alt: "ミニチュア都市の上空にAIの核とデジタルツインが浮かび、街へ光が降りているHomeの3Dシーン",
         caption: "Homeの3Dシーン(03 AI)",
-        width: 1600,
+        width: 1898,
         height: 923,
       },
     ],

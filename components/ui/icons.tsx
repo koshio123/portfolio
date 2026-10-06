@@ -37,3 +37,25 @@ export function DownloadIcon(props: IconProps) {
     </svg>
   );
 }
+
+/** 画像がまだ無いことを示すプレースホルダー(山と太陽の写真アイコン) */
+export function ImagePlaceholderIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="48"
+      height="48"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role="img"
+      aria-label="画像は準備中"
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="8.5" cy="9.5" r="1.5" />
+      <path d="m21 15-4.5-4.5L7 20" />
+    </svg>
+  );
+}
