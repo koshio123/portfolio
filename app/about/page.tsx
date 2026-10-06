@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   description: "自己紹介、大切にしていること、連絡先",
 };
 
-const intro = "主に自動車 / エネルギーの領域でソフトウェアを開発してきた犬好きエンジニア。人々の生活を大きく変えうるビッグデータ・AIの技術に関心があり、日々精進中。";
+const intro = [
+  "主に自動車 / エネルギーの領域でソフトウェアを開発してきた犬好きエンジニア。",
+  "人々の生活を大きく変えうるビッグデータ・AIの技術に関心があり、日々精進中。",
+];
 
 const values = [
   { title: "[価値観1]", text: "[説明]" },
@@ -42,7 +45,13 @@ export default function AboutPage() {
           <span className="label text-ink-muted">ABOUT</span>
           <h1 className="text-h1 font-bold">{site.name}</h1>
           <p className="text-ink-muted">{site.role}</p>
-          <p className="leading-[1.9]">{intro}</p>
+          <p className="leading-[1.9]">
+            {intro.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
           <div className="mt-2 flex flex-wrap gap-3">
             {site.resumePdf && (
               <a
