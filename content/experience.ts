@@ -33,7 +33,7 @@ export const careers: Career[] = [
   {
     period: "2025.01 – 現在",
     company: "トヨタ自動車",
-    title: "Software Engineer — エネルギーマネジメントシステム",
+    title: "Software Engineer / Systems Engineer — エネルギーマネジメントシステム",
     current: true,
     highlights: [
       "販売店・工場・家庭向けEVエネルギーマネジメント基盤のAWSバックエンド(Python、FastAPI、PostgreSQL)を設計・開発",
@@ -149,7 +149,7 @@ export const certifications: { name: string; issuer: string }[] = [
   { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services" },
   { name: "AWS Certified Developer – Associate", issuer: "Amazon Web Services" },
   { name: "AWS Certified Machine Learning – Associate", issuer: "Amazon Web Services" },
-  { name: "応用情報技術者試験", issuer: "情報処理推進機構(IPA)" },
   { name: "E資格(Deep Learning for ENGINEER)", issuer: "日本ディープラーニング協会(JDLA)" },
   { name: "画像処理エンジニア検定 エキスパート", issuer: "CG-ARTS" },
+  { name: "応用情報技術者試験", issuer: "情報処理推進機構(IPA)" },
 ];

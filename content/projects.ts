@@ -33,13 +33,13 @@ export const projects: Project[] = [
     title: "V2X(EVスマート充電)",
     kind: "work",
     summary:
-      "販売店・工場・家庭のEVを対象に、車両やユーザビリティの制約を考慮しつつ、電力コストを抑える充放電計画を自動で作る基盤",
+      "販売店・工場・家庭のEVを対象に、車両やユーザビリティの制約を考慮しつつ、電力コストを抑える充放電計画を自動でスケジューリングする基盤",
     period: "2025.01 – 現在",
     role: {
       areas: ["要件定義", "設計", "実装", "テスト", "運用"],
-      notes: ["主担当:需要電力と、再生可能エネルギーによる発電電力の予測", "主担当:数理最適化を用いた充放電スケジューリング"],
+      notes: ["主担当: 需要電力と、再生可能エネルギーによる発電電力の予測", "主担当: 数理最適化を用いた充放電スケジューリング"],
     },
-    stack: ["Python", "FastAPI", "PostgreSQL", "AWS", "時系列予測", "数理最適化"],
+    stack: ["Python", "FastAPI", "PostgreSQL", "AWS", "時系列予測", "PyTorch", "Scikit Learn", "LightGBM", "数理最適化", "Pyomo"],
   },
   {
     slug: "digital-twin-platform",
