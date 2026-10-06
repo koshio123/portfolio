@@ -39,7 +39,7 @@ export const projects: Project[] = [
       areas: ["要件定義", "設計", "実装", "テスト", "運用"],
       notes: ["主担当: 需要電力と、再生可能エネルギーによる発電電力の予測", "主担当: 数理最適化を用いた充放電スケジューリング"],
     },
-    stack: ["Python", "FastAPI", "PostgreSQL", "AWS", "時系列予測", "PyTorch", "Scikit Learn", "LightGBM", "数理最適化", "Pyomo"],
+    stack: ["Python", "FastAPI", "PostgreSQL", "AWS", "PyTorch", "Scikit Learn", "LightGBM", "Pyomo", "時系列予測", "数理最適化"],
   },
   {
     slug: "digital-twin-platform",
