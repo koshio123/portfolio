@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { site } from "@/content/site";
 import { vision } from "@/content/vision";
 import { ButtonLink } from "@/components/ui/ButtonLink";
@@ -9,6 +10,12 @@ export const metadata: Metadata = {
   title: "About",
   description: "自己紹介、大切にしていること、連絡先",
 };
+
+const intro = [
+  "自動車とエネルギーの領域で、7年以上ソフトウェアを開発してきたエンジニア。車両の故障診断システムに始まり、Woven by Toyota でのデジタルツインプラットフォームを経て、現在はトヨタ自動車でEVのエネルギーマネジメント基盤を担当している。",
+  "電力需要と再エネ発電量の予測、数理最適化による充放電スケジューリングを、AWS上のサービスとして要件定義から運用まで手がける。フロントエンドや3D、機械学習まで、課題に合わせて必要な技術を横断するのが強み。",
+  "データとAIで暮らしの無駄を減らし、人が有益なことに時間を使える仕組みをつくりたい。",
+];
 
 const values = [
   { title: "[価値観1]", text: "[説明]" },
@@ -27,17 +34,23 @@ export default function AboutPage() {
   return (
     <div className="container-page flex flex-col gap-24 py-20">
       <section className="flex flex-wrap items-center gap-14">
-        <div className="flex aspect-[4/5] flex-[0_1_320px] items-center justify-center rounded-lg bg-surface font-mono text-xs text-ink-muted">
-          {/* TODO: next/image でプロフィール写真を置く */}
-          [プロフィール写真]
-        </div>
+        <Image
+          src="/profile.jpg"
+          alt="プロフィール画像"
+          width={400}
+          height={400}
+          priority
+          className="aspect-square w-full max-w-[320px] flex-[0_1_320px] rounded-lg object-cover"
+        />
         <div className="flex flex-[1_1_420px] flex-col gap-5">
           <span className="label text-ink-muted">ABOUT</span>
           <h1 className="text-h1 font-bold">{site.name}</h1>
           <p className="text-ink-muted">{site.role}</p>
-          <p className="leading-[1.9]">
-            [自己紹介 — 3〜4行。専門領域、これまでの歩み、これから取り組みたいこと]
-          </p>
+          {intro.map((text) => (
+            <p key={text} className="leading-[1.9]">
+              {text}
+            </p>
+          ))}
           <div className="mt-2 flex flex-wrap gap-3">
             {site.resumePdf && (
               <a
