@@ -62,7 +62,7 @@ export const projects: Project[] = [
     slug: "fault-diagnosis",
     title: "自動故障診断システム",
     kind: "work",
-    summary: "市場を走る車両のデータから故障を早期に検知・分類し、ダウンタイムを減らすための診断システム",
+    summary: "市場を走る車両のデータから故障を早期に検知・分類し、ダウンタイムを減らすための自動故障診断Webシステム",
     period: "2019.04 – 2022.12",
     role: {
       areas: ["要件定義", "設計", "実装", "テスト", "デプロイ"],
