@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/projects";
 import { KindTag } from "@/components/ui/Tag";
@@ -11,8 +12,12 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
       className="flex flex-col overflow-hidden rounded-lg border border-line text-ink no-underline transition-colors hover:border-line-strong hover:text-ink"
     >
       {large && (
-        <div className="flex h-48 items-center justify-center bg-surface px-4">
-          <ArchitectureDiagram nodes={project.diagram.nodes} compact />
+        <div className="relative flex h-48 items-center justify-center bg-surface px-4">
+          {project.image ? (
+            <Image src={project.image.src} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+          ) : (
+            <ArchitectureDiagram nodes={project.diagram.nodes} compact />
+          )}
         </div>
       )}
       <div className="flex flex-1 flex-col gap-2.5 p-6">

@@ -1,6 +1,6 @@
 /**
  * プロジェクトのデータ。詳細ページはこの配列から自動生成される。
- * [ ] のプレースホルダーを実際の内容に置き換える。
+ * 業務は「概要・イメージ図・担当・技術スタック」まで、個人開発は「課題・設計のポイント・成果」も書く。
  */
 
 export type ProjectKind = "work" | "personal";
@@ -18,16 +18,21 @@ export type Project = {
   /** 概要:何を、誰のために作ったか(1〜2行) */
   summary: string;
   period: string;
-  team: string;
-  /** 全体図。左から右へ流れる箱の並び */
+  /** イメージ図や画面の画像(public/ 以下のパス)。あれば diagram の代わりに表示する */
+  image?: { src: string; alt: string; width: number; height: number };
+  /** 画像がないときに出す簡易な全体図。左から右へ流れる箱の並び */
   diagram: { nodes: DiagramNode[]; caption: string };
-  /** 全体図の代わりに画面を見せる場合の画像(public/ 以下のパス) */
-  screenshot?: string;
-  problems: { technical: string[]; business: string[] };
-  role: { areas: string[]; notes: string[] };
-  decisions: { topic: string; options: string[]; chosen: string; reason: string }[];
-  outcomes: { value: string; label: string }[];
   stack: string[];
+
+  // 業務プロジェクトだけ(詳細は公開できないので、担当までにとどめる)
+  /** 担当:areas は担当した工程、notes は主担当など */
+  role?: { areas: string[]; notes: string[] };
+
+  // 個人開発だけ(すべて自分で担当するので、担当は書かない)
+  /** 課題:purpose は誰のどんな困りごとを解くか、technical は実現するうえでの技術課題 */
+  problems?: { purpose: string[]; technical: string[] };
+  decisions?: { topic: string; options: string[]; chosen: string; reason: string }[];
+  outcomes?: { value: string; label: string }[];
 };
 
 export const projects: Project[] = [
@@ -35,9 +40,9 @@ export const projects: Project[] = [
     slug: "v2x-smart-charging",
     title: "V2X(EVスマート充電)",
     kind: "work",
-    summary: "[何を、誰のために作ったか — 1〜2行]",
-    period: "[YYYY.MM – YYYY.MM]",
-    team: "[人数・体制]",
+    summary:
+      "販売店・工場・家庭のEVを対象に、車両やユーザビリティの制約を考慮しつつ、電力コストを抑える充放電計画を自動で作る基盤",
+    period: "2025.01 – 現在",
     diagram: {
       nodes: [
         { label: "車両・充電器" },
@@ -47,51 +52,48 @@ export const projects: Project[] = [
       ],
       caption: "図1 抽象化したアーキテクチャ",
     },
-    problems: { technical: ["[課題1]", "[課題2]"], business: ["[課題1]", "[課題2]"] },
-    role: { areas: ["[要件定義]", "[設計]", "[実装]"], notes: ["[担当範囲の説明]", "[規模感]"] },
-    decisions: [
-      { topic: "[論点1]", options: ["[A]", "[B]"], chosen: "[A]", reason: "[理由]" },
-      { topic: "[論点2]", options: ["[A]", "[B]", "[C]"], chosen: "[B]", reason: "[理由]" },
-    ],
-    outcomes: [
-      { value: "[数値]", label: "[指標名]" },
-      { value: "[数値]", label: "[指標名]" },
-    ],
-    stack: ["[言語]", "[フレームワーク]", "[データベース]", "[クラウド]"],
+    role: {
+      areas: ["要件定義", "設計", "実装", "テスト", "運用"],
+      notes: ["主担当:需要電力と、再生可能エネルギーによる発電電力の予測", "主担当:数理最適化を用いた充放電スケジューリング"],
+    },
+    stack: ["Python", "FastAPI", "PostgreSQL", "AWS", "時系列予測", "数理最適化"],
   },
   {
     slug: "digital-twin-platform",
     title: "デジタルツインプラットフォーム",
     kind: "work",
-    summary: "[何を、誰のために作ったか — 1〜2行]",
-    period: "[YYYY.MM – YYYY.MM]",
-    team: "[人数・体制]",
+    summary:
+      "シミュレーションエンジニア向けに、デジタルツイン上のシナリオの作成・可視化・再生を行うWebとデスクトップのツール群",
+    period: "2023.01 – 2024.12",
     diagram: {
       nodes: [{ label: "現実のデータ" }, { label: "ツイン", main: true }, { label: "可視化・分析" }],
       caption: "図1 抽象化したアーキテクチャ",
     },
-    problems: { technical: ["[課題1]"], business: ["[課題1]"] },
-    role: { areas: ["[設計]", "[実装]"], notes: ["[担当範囲の説明]"] },
-    decisions: [{ topic: "[論点1]", options: ["[A]", "[B]"], chosen: "[A]", reason: "[理由]" }],
-    outcomes: [{ value: "[数値]", label: "[指標名]" }],
-    stack: ["[言語]", "[フレームワーク]"],
+    role: {
+      areas: ["設計", "実装"],
+      notes: [
+        "3Dシナリオビルダー(React、Three.js)",
+        "分析・デバッグ用の可視化ダッシュボード(React、D3.js)",
+        "シミュレーション再生・シナリオ検証用のデスクトップアプリ(Unity)",
+      ],
+    },
+    stack: ["TypeScript", "React", "Three.js", "D3.js", "Unity", "C#"],
   },
   {
     slug: "fault-diagnosis",
     title: "自動故障診断システム",
     kind: "work",
-    summary: "[何を、誰のために作ったか — 1〜2行]",
-    period: "[YYYY.MM – YYYY.MM]",
-    team: "[人数・体制]",
+    summary: "市場を走る車両のデータから故障を早期に検知・分類し、ダウンタイムを減らすための診断システム",
+    period: "2019.04 – 2022.12",
     diagram: {
       nodes: [{ label: "稼働データ" }, { label: "診断", main: true }, { label: "通知・対応" }],
       caption: "図1 抽象化したアーキテクチャ",
     },
-    problems: { technical: ["[課題1]"], business: ["[課題1]"] },
-    role: { areas: ["[設計]", "[実装]"], notes: ["[担当範囲の説明]"] },
-    decisions: [{ topic: "[論点1]", options: ["[A]", "[B]"], chosen: "[A]", reason: "[理由]" }],
-    outcomes: [{ value: "[数値]", label: "[指標名]" }],
-    stack: ["[言語]", "[フレームワーク]"],
+    role: {
+      areas: ["要件定義", "設計", "実装", "テスト", "デプロイ"],
+      notes: ["車載データ収集アプリと、故障事例分析用のWebアプリ", "機械学習による故障の検知・分類"],
+    },
+    stack: ["MATLAB / Simulink", "C", "Python", "Flask", "Oracle DB"],
   },
   {
     slug: "personal-project-1",
@@ -99,13 +101,11 @@ export const projects: Project[] = [
     kind: "personal",
     summary: "[概要]",
     period: "[YYYY.MM – ]",
-    team: "個人",
     diagram: {
       nodes: [{ label: "[入力]" }, { label: "[処理]", main: true }, { label: "[出力]" }],
       caption: "図1 構成",
     },
-    problems: { technical: ["[課題1]"], business: [] },
-    role: { areas: ["企画", "設計", "実装"], notes: [] },
+    problems: { purpose: ["[誰の、どんな困りごとを解くか]"], technical: ["[課題1]"] },
     decisions: [],
     outcomes: [],
     stack: ["[技術]"],
