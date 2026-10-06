@@ -55,7 +55,7 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
       {filter !== "work" && personal.length > 0 && (
         <section className="flex flex-col gap-6">
           <h2 className="text-h2 font-bold">個人開発</h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {personal.map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
