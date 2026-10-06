@@ -2,22 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/projects";
 import { KindTag } from "@/components/ui/Tag";
-import { ArchitectureDiagram } from "./ArchitectureDiagram";
 
-/** Projects 一覧のカード。large は業務プロジェクト用の図つき */
+/** Projects 一覧のカード。large は業務プロジェクト用で、技術スタックも出す */
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
       className="flex flex-col overflow-hidden rounded-lg border border-line text-ink no-underline transition-colors hover:border-line-strong hover:text-ink"
     >
-      {large && (
-        <div className="relative flex h-48 items-center justify-center bg-surface px-4">
-          {project.image ? (
-            <Image src={project.image.src} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
-          ) : (
-            <ArchitectureDiagram nodes={project.diagram.nodes} compact />
-          )}
+      {project.image && (
+        <div className="relative h-48 bg-surface">
+          <Image src={project.image.src} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
         </div>
       )}
       <div className="flex flex-1 flex-col gap-2.5 p-6">

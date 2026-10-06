@@ -25,7 +25,7 @@ app/                      ページ(ルーティング)
 components/
   layout/                 Header(Night・固定)、Footer、ナビ
   ui/                     ButtonLink、SectionHeading、Tag、アイコン
-  projects/               ProjectCard、ProjectsBrowser(絞り込み)、ArchitectureDiagram
+  projects/               ProjectCard、ProjectsBrowser(絞り込み)
   blog/                   PostCard
   home/                   VisionScene(スクロール制御・キャプション)、ScenePoster(静止画)
     scene/                CityCanvas(描画設定)、City(3Dの中身)、keyframes(幕ごとの色・カメラ)、

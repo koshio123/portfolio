@@ -1,15 +1,9 @@
 /**
  * プロジェクトのデータ。詳細ページはこの配列から自動生成される。
- * 業務は「概要・イメージ図・担当・技術スタック」まで、個人開発は「課題・設計のポイント・成果」も書く。
+ * 業務は「概要・担当・技術スタック」まで、個人開発は「課題・設計のポイント・成果」も書く。
  */
 
 export type ProjectKind = "work" | "personal";
-
-export type DiagramNode = {
-  label: string;
-  /** 主役の要素(夜色の箱で強調)。1枚の図で1〜2個まで */
-  main?: boolean;
-};
 
 export type Project = {
   slug: string;
@@ -18,10 +12,8 @@ export type Project = {
   /** 概要:何を、誰のために作ったか(1〜2行) */
   summary: string;
   period: string;
-  /** イメージ図や画面の画像(public/ 以下のパス)。あれば diagram の代わりに表示する */
+  /** 画面や構成図の画像(public/ 以下のパス)。あるときだけ「イメージ図」として表示する */
   image?: { src: string; alt: string; width: number; height: number };
-  /** 画像がないときに出す簡易な全体図。左から右へ流れる箱の並び */
-  diagram: { nodes: DiagramNode[]; caption: string };
   stack: string[];
 
   // 業務プロジェクトだけ(詳細は公開できないので、担当までにとどめる)
@@ -43,15 +35,6 @@ export const projects: Project[] = [
     summary:
       "販売店・工場・家庭のEVを対象に、車両やユーザビリティの制約を考慮しつつ、電力コストを抑える充放電計画を自動で作る基盤",
     period: "2025.01 – 現在",
-    diagram: {
-      nodes: [
-        { label: "車両・充電器" },
-        { label: "通信・ゲートウェイ" },
-        { label: "クラウド基盤", main: true },
-        { label: "外部システム" },
-      ],
-      caption: "図1 抽象化したアーキテクチャ",
-    },
     role: {
       areas: ["要件定義", "設計", "実装", "テスト", "運用"],
       notes: ["主担当:需要電力と、再生可能エネルギーによる発電電力の予測", "主担当:数理最適化を用いた充放電スケジューリング"],
@@ -65,10 +48,6 @@ export const projects: Project[] = [
     summary:
       "シミュレーションエンジニア向けに、デジタルツイン上のシナリオの作成・可視化・再生を行うWebとデスクトップのツール群",
     period: "2023.01 – 2024.12",
-    diagram: {
-      nodes: [{ label: "現実のデータ" }, { label: "ツイン", main: true }, { label: "可視化・分析" }],
-      caption: "図1 抽象化したアーキテクチャ",
-    },
     role: {
       areas: ["設計", "実装"],
       notes: [
@@ -85,10 +64,6 @@ export const projects: Project[] = [
     kind: "work",
     summary: "市場を走る車両のデータから故障を早期に検知・分類し、ダウンタイムを減らすための診断システム",
     period: "2019.04 – 2022.12",
-    diagram: {
-      nodes: [{ label: "稼働データ" }, { label: "診断", main: true }, { label: "通知・対応" }],
-      caption: "図1 抽象化したアーキテクチャ",
-    },
     role: {
       areas: ["要件定義", "設計", "実装", "テスト", "デプロイ"],
       notes: ["車載データ収集アプリと、故障事例分析用のWebアプリ", "機械学習による故障の検知・分類"],
@@ -101,10 +76,6 @@ export const projects: Project[] = [
     kind: "personal",
     summary: "[概要]",
     period: "[YYYY.MM – ]",
-    diagram: {
-      nodes: [{ label: "[入力]" }, { label: "[処理]", main: true }, { label: "[出力]" }],
-      caption: "図1 構成",
-    },
     problems: { purpose: ["[誰の、どんな困りごとを解くか]"], technical: ["[課題1]"] },
     decisions: [],
     outcomes: [],

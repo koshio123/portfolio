@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, kindLabel, projects } from "@/content/projects";
-import { ArchitectureDiagram } from "@/components/projects/ArchitectureDiagram";
 import { KindTag, TechChip } from "@/components/ui/Tag";
 
 export const dynamicParams = false;
@@ -62,7 +61,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   // 中身のあるセクションだけを出す
   const content: Record<SectionInfo["id"], boolean> = {
     overview: true,
-    image: true,
+    image: project.image !== undefined,
     problem: problemGroups.length > 0,
     role: role !== undefined,
     design: decisions.length > 0,
@@ -125,9 +124,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
                 height={project.image.height}
                 className="h-auto w-full rounded-lg border border-line"
               />
-            ) : (
-              <ArchitectureDiagram nodes={project.diagram.nodes} caption={project.diagram.caption} />
-            ),
+            ) : null,
           )}
 
           {section(
