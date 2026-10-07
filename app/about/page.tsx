@@ -8,18 +8,12 @@ import { DownloadIcon, GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "自己紹介、大切にしていること、連絡先",
+  description: "自己紹介、ビジョン、連絡先",
 };
 
 const intro = [
   "主に自動車 / エネルギーの領域でソフトウェアを開発してきた犬好きエンジニア。",
   "人々の生活を大きく変えうるビッグデータ・AIの技術に関心があり、日々精進中。",
-];
-
-const values = [
-  { title: "ムダの排除", text: "限られた人生の時間を有意義なものに" },
-  { title: "イシュードリブン", text: "本質的に解決したいことは何かを深く考える" },
-  { title: "改善を継続", text: "人々の抱える課題も、それを解決しうる技術も変化し続ける" },
 ];
 
 const contacts = [
@@ -79,19 +73,6 @@ export default function AboutPage() {
         <ButtonLink href="/" variant="secondary" className="self-start">
           Homeで3Dシーンを見る →
         </ButtonLink>
-      </section>
-
-      <section className="flex flex-col gap-8">
-        <SectionHeading label="VALUES" title="大切にしていること" />
-        <ul className="grid gap-6 md:grid-cols-3">
-          {values.map((v, i) => (
-            <li key={i} className="flex flex-col gap-3 rounded-lg border border-line px-6 py-7">
-              <span className="font-mono text-2xl font-medium text-link">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="text-h3 font-bold">{v.title}</h3>
-              <p className="text-sm leading-relaxed text-ink-muted">{v.text}</p>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section id="contact" className="flex scroll-mt-8 flex-col gap-6">
