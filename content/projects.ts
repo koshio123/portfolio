@@ -109,6 +109,66 @@ export const projects: Project[] = [
     stack: ["MATLAB / Simulink", "C", "Python", "Flask", "Oracle DB"],
   },
   {
+    slug: "kondate-app",
+    title: "kondate-app",
+    kind: "personal",
+    summary:
+      "家族の夕食の献立を、AIが指定日数分まとめて提案するスマホ向けPWA。余り物や時短の必要性、食べ物の持ちを考慮したり、売り場順の買い物リストを2人で共有できる。また栄養バランスのF/Bも可能。",
+    period: "2026.10 – 現在",
+    repo: "https://github.com/koshio123/kondate-app",
+    images: [
+      {
+        src: "/projects/kondate-app/screens.png",
+        alt: "ホーム、献立の提案、買い物リストの3画面のデザイン",
+        caption: "画面デザイン(左から ホーム、献立の提案、買い物リスト)",
+        width: 1600,
+        height: 900,
+      },
+    ],
+    problems: {
+      purpose: [
+        "各種制約（冷蔵庫の余り物、栄養バランス、時短の必要性、アレルギーや好き嫌い）を考慮した上で、数日分の献立を考えるのが負担になっている",
+        "品数の多い買い出しでは店内を行ったり来たりしてしまう"
+      ],
+      technical: [
+        "LLMによる献立生成は応答に時間がかかり、Edge Functionの実行時間の上限(150秒)に近づく",
+        "2人が同じ買い物リストを使い、電波の届かない店内でもチェックできるようにする",
+      ],
+    },
+    decisions: [
+      {
+        topic: "献立生成のモデル",
+        options: ["Claude Haiku 5.5", "Claude Sonnet 5.5", "Claude Opus 5.5"],
+        chosen: "Claude Sonnet 5.5",
+        reason: "同じ条件で3モデルを比較し、献立の質はOpusと同等、費用は約6割だったため",
+      },
+      {
+        topic: "生成の方式",
+        options: ["全日分を一括で生成", "2段階で生成"],
+        chosen: "2段階で生成",
+        reason:
+          "全日の献立の概要を先に作り、日ごとの材料と手順を並列で生成する。最大の応答時間が101秒から81秒に縮み、上限に余裕ができたため",
+      },
+      {
+        topic: "フロントエンド",
+        options: ["Next.js", "SvelteKit", "Flutter Web", "React + Vite(PWA)"],
+        chosen: "React + Vite(PWA)",
+        reason: "サーバー側の処理はSupabaseに寄せたので静的なSPAで足り、PWAの設定が最も少ないため",
+      },
+    ],
+    stack: [
+      "Supabase",
+      "PostgreSQL",
+      "Claude API",
+      "PWA",
+      "TypeScript",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "TanStack Query",
+    ],
+  },
+  {
     slug: "credit-memo-agent",
     title: "credit-memo-agent",
     kind: "personal",
@@ -289,68 +349,6 @@ export const projects: Project[] = [
       "Three.js",
       "React Three Fiber",
       "MDX",
-    ],
-  },
-  {
-    slug: "kondate-app",
-    title: "kondate-app",
-    kind: "personal",
-    summary:
-      "家族2人の夕食の献立を、Claudeが数日分まとめて提案するスマホ向けPWA。余り物を優先して使い、売り場順の買い物リストを2人で共有できる",
-    period: "2026.10 – 現在",
-    images: [
-      {
-        src: "/projects/kondate-app/screens.png",
-        alt: "ホーム、献立の提案、買い物リストの3画面のデザイン",
-        caption: "画面デザイン(左から ホーム、献立の提案、買い物リスト)",
-        width: 1600,
-        height: 900,
-      },
-    ],
-    problems: {
-      purpose: [
-        "数日分の夕食の献立を考えるのが負担になっている",
-        "冷蔵庫の余り物を使い切れず、品数の多い買い出しでは店内を行ったり来たりしてしまう",
-      ],
-      technical: [
-        "LLMによる献立生成は応答に時間がかかり、Edge Functionの実行時間の上限(150秒)に近づく",
-        "2人が同じ買い物リストを使い、電波の届かない店内でもチェックできるようにする",
-        "家族全員のアレルギーや苦手な食材を除いた献立を生成する",
-      ],
-    },
-    decisions: [
-      {
-        topic: "献立生成のモデル",
-        options: ["Claude Haiku 5.5", "Claude Sonnet 5.5", "Claude Opus 5.5"],
-        chosen: "Claude Sonnet 5.5",
-        reason: "同じ条件で3モデルを比較し、献立の質はOpusと同等、費用は約6割だったため",
-      },
-      {
-        topic: "生成の方式",
-        options: ["全日分を一括で生成", "2段階で生成"],
-        chosen: "2段階で生成",
-        reason:
-          "全日の献立の概要を先に作り、日ごとの材料と手順を並列で生成する。最大の応答時間が101秒から81秒に縮み、上限に余裕ができたため",
-      },
-      {
-        topic: "フロントエンド",
-        options: ["Next.js", "SvelteKit", "Flutter Web", "React + Vite(PWA)"],
-        chosen: "React + Vite(PWA)",
-        reason: "サーバー側の処理はSupabaseに寄せたので静的なSPAで足り、PWAの設定が最も少ないため",
-      },
-    ],
-    stack: [
-      "TypeScript",
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "TanStack Query",
-      "Supabase",
-      "PostgreSQL",
-      "Deno",
-      "Claude API",
-      "PWA",
-      "Vercel",
     ],
   },
 ];
