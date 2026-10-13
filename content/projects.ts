@@ -47,7 +47,7 @@ export type Project = {
   outcomes?: { value: string; label: string }[];
 };
 
-export const projects: Project[] = [
+const projectList: Project[] = [
   {
     slug: "v2x-smart-charging",
     title: "V2X(EVスマート充電)",
@@ -351,6 +351,12 @@ export const projects: Project[] = [
       "MDX",
     ],
   },
+];
+
+/** 個人開発を先、業務を後に並べる(詳細ページの前後リンクもこの順) */
+export const projects: Project[] = [
+  ...projectList.filter((p) => p.kind === "personal"),
+  ...projectList.filter((p) => p.kind === "work"),
 ];
 
 export const kindLabel: Record<ProjectKind, string> = {

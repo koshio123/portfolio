@@ -6,13 +6,13 @@ import { ProjectCard } from "./ProjectCard";
 
 const filters = [
   { key: "all", label: "すべて" },
-  { key: "work", label: "業務" },
   { key: "personal", label: "個人開発" },
+  { key: "work", label: "業務" },
 ] as const;
 
 type FilterKey = (typeof filters)[number]["key"];
 
-/** 種別での絞り込みと、業務・個人開発のセクション表示 */
+/** 種別での絞り込みと、個人開発・業務のセクション表示 */
 export function ProjectsBrowser({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<FilterKey>("all");
   const work = projects.filter((p) => p.kind === "work");
@@ -41,22 +41,22 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
         })}
       </div>
 
-      {filter !== "personal" && work.length > 0 && (
+      {filter !== "work" && personal.length > 0 && (
         <section className="flex flex-col gap-6">
-          <h2 className="text-h2 font-bold">業務プロジェクト</h2>
+          <h2 className="text-h2 font-bold">個人開発</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {work.map((p) => (
+            {personal.map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>
       )}
 
-      {filter !== "work" && personal.length > 0 && (
+      {filter !== "personal" && work.length > 0 && (
         <section className="flex flex-col gap-6">
-          <h2 className="text-h2 font-bold">個人開発</h2>
+          <h2 className="text-h2 font-bold">業務プロジェクト</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {personal.map((p) => (
+            {work.map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
